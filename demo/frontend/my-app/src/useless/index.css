@@ -1,0 +1,55 @@
+.main-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 20px;
+    position: absolute;
+    top: 50px; right: 0; bottom: 0; left: 0;
+    border: 5px solid white;
+}
+
+.small-container-green, .small-container-red{
+    height: 100px;
+    width: 100px;
+    margin: 10px auto auto;
+    text-align: center;
+    outline-style: double;
+    border-radius: 4px;
+}
+
+.menu{
+    height: 100px;
+    width: 100px;
+    background-color: grey;
+    position: absolute;
+    right: 0; bottom: 0;
+    border-radius: 50%
+}
+
+.small-container-green{
+    outline-color: greenyellow;
+}
+
+.small-container-red{
+    outline-color: red;
+}
+
+.main{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-row-gap: 20px;
+    position: absolute;
+    top: 50px; right: 0; bottom: 0; left: 0;
+    border: 5px solid white;
+}
+
+.sus, .jos{
+    background-color: #61dafb;
+}
+
+.sus{
+    height: 140px;
+}
+
+.jos{
+    height: 500px;
+}
