@@ -16,6 +16,14 @@
     border-radius: 4px;
 }
 
+.add-container{
+    height: 00px;
+    width: 200px;
+    justify-content: center;
+    text-align-all: center;
+    margin: auto;
+}
+
 .menu{
     height: 100px;
     width: 100px;
