@@ -22,6 +22,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import com.example.demo.persitence.Authority;
+import com.example.demo.persitence.User;
 import com.example.demo.repository.UserDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -44,11 +45,11 @@ public class ServerRestaurantApplication {
 	@PostConstruct
 	protected void init() {
 
-		List<Authority> authorityList=new ArrayList<>();
-
-		authorityList.add(createAuthority("USER","User role"));
-		//authorityList.add(createAuthority("ADMIN","Admin role"));
-
+//		List<Authority> authorityList=new ArrayList<>();
+//
+//		authorityList.add(createAuthority("USER","User role"));
+//		authorityList.add(createAuthority("ADMIN","Admin role"));
+//
 //		User user=new User();
 //
 //		user.setUserName("raul");
