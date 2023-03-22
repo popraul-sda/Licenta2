@@ -41,6 +41,7 @@ public class ProductServiceController {
         return new ResponseEntity<>("Product Data Added", HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/products/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteProduct(@PathVariable("id") Long id){
         productRepository.deleteById(id);

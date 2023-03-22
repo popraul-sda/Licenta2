@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import "./useless/index.css";
+import "../useless/index.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {Button} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";

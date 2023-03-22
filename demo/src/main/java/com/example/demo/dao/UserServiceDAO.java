@@ -1,7 +1,6 @@
 package com.example.demo.dao;
 
-import com.example.demo.model.User;
-import com.example.demo.persitence.Product;
+import com.example.demo.model.Utilizator;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -18,10 +17,10 @@ public class UserServiceDAO {
         this.em = em;
     }
 
-    public List<User> findBooks() {
+    public List<Utilizator> findBooks() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<User> cq = cb.createQuery(User.class);
-        Root<User> from = cq.from(User.class);
+        CriteriaQuery<Utilizator> cq = cb.createQuery(Utilizator.class);
+        Root<Utilizator> from = cq.from(Utilizator.class);
         return em.createQuery(cq).getResultList();
     }
 }
