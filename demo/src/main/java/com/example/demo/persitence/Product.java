@@ -7,18 +7,19 @@ import java.io.Serializable;
 @Table(name = "products")
 public class Product implements Serializable {
     private long id;
-    private String name,description,price,category;
+    private String name,description,price,category,image;
 
 
     public Product() {
     }
 
-    public Product(Long id, String name, String description, String price, String category) {
+    public Product(Long id, String name, String description, String price, String category, String image) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
+        this.image = image;
     }
 
     @Id
@@ -61,5 +62,13 @@ public class Product implements Serializable {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

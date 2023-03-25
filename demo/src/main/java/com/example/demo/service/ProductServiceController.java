@@ -27,7 +27,7 @@ public class ProductServiceController {
     @RequestMapping(value = "/products")
     public ResponseEntity<Object> getProducts() {
         return new ResponseEntity<>(productRepository.findAll().stream().map(o -> new ProductDTO(o.getId(), o.getName(),
-                o.getDescription(), o.getPrice(), o.getCategory())).collect(Collectors.toList()), HttpStatus.OK);
+                o.getDescription(), o.getPrice(), o.getCategory(), o.getImage())).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.POST)

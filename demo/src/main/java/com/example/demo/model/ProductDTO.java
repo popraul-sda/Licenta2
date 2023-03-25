@@ -6,18 +6,19 @@ import javax.persistence.Id;
 
 public class ProductDTO {
     private long id;
-    private String name,description,price,category;
+    private String name,description,price,category,image;
 
 
     public ProductDTO() {
     }
 
-    public ProductDTO(Long id, String name, String description, String price, String category) {
+    public ProductDTO(Long id, String name, String description, String price, String category, String image) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
+        this.image = image;
     }
 
     @Id
@@ -60,5 +61,13 @@ public class ProductDTO {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
