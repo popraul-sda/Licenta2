@@ -17,9 +17,17 @@ export function ProductList(){
 
     useEffect(() => {
         async function getData(){
-            fetch('http://localhost:8080/products')
-                .then(res => res.json())
-                .then(data => setProducts(data))
+            fetch('http://localhost:8080/products', {
+                headers: {
+                    'Authorization':'Bearer ' + sessionStorage.getItem('token')
+                },
+                method: "GET"
+            })
+                .then(function(response){
+                    return response.json();
+                }).then(function(data) {
+                setProducts(data)
+            })
         }
 
         getData();
@@ -34,7 +42,8 @@ export function ProductList(){
         fetch('http://localhost:8080/products', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+                'Authorization':'Bearer ' + sessionStorage.getItem('token')
             },
             body: JSON.stringify({
                 "name": name,
@@ -53,7 +62,10 @@ export function ProductList(){
         let path = 'http://localhost:8080/products/' + id;
 
         fetch(path, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                'Authorization':'Bearer ' + sessionStorage.getItem('token')
+            }
         })
             .then(res => res.json())
             .then(res => console.log(res))

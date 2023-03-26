@@ -6,6 +6,7 @@ export function Login(){
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrormessage] = useState(true);
     let navigate = useNavigate();
 
     function sendLoginRequest() {
@@ -23,16 +24,27 @@ export function Login(){
             method: "POST",
             body: JSON.stringify(reqBody),
         })
-        .then((response)=>{
-
-            console.log("response",response);
-            if(response.status===200){
-                navigate('/dashboard');
-            }
-
+        .then(function(response){
+            return response.json();
+        }).then(function(data) {
+            sessionStorage.setItem('token', data.token);
+            getUserInfo();
+        }).catch(error => {
+            setErrormessage(false);
+            console.log(error);
         })
 
+    }
 
+    function getUserInfo(){
+        fetch('http://localhost:8080/api/v1/auth/userinfo', {
+            headers:{
+                'Authorization':'Bearer ' + sessionStorage.getItem('token')
+            },
+            method: "GET"
+        }).then((res) =>{
+            navigate('/dashboard');//doar daca status este 200, token trebe stocat in sesion storage nu in local storage
+        }).catch(error => console.log(error))
 
     }
 
@@ -59,6 +71,9 @@ export function Login(){
                             <button onClick={sendLoginRequest}>Log in</button>
                             <div className="register">
                                 <p>Don't have a account <a href="/">Register</a></p>
+                            </div>
+                            <div className="message">
+                                {errorMessage ? null : <div className="danger" id="danger">Wrong credentials!</div>}
                             </div>
                     </div>
                 </div>
