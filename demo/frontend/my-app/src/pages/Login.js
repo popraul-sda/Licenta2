@@ -4,8 +4,9 @@ import { useNavigate  } from 'react-router-dom';
 
 export function Login(){
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState(localStorage.getItem('username'));
+    const [password, setPassword] = useState(localStorage.getItem('password'));
+    const [remember, setRemember] = useState(false);
     const [errorMessage, setErrormessage] = useState(true);
     let navigate = useNavigate();
 
@@ -42,11 +43,22 @@ export function Login(){
                 'Authorization':'Bearer ' + sessionStorage.getItem('token')
             },
             method: "GET"
-        }).then((res) =>{
-            navigate('/dashboard');//doar daca status este 200, token trebe stocat in sesion storage nu in local storage
+        }).then(function(res){
+            return res.json();
+        }).then(function (data){
+            sessionStorage.setItem('role', data.roles[0].roleCode);
+            navigate('/dashboard');
         }).catch(error => console.log(error))
 
     }
+
+    const handleCheckBox = event => {
+        if (event.target.checked) {
+            localStorage.setItem('username', username);
+            localStorage.setItem('password', password);
+        }
+        setRemember(current => !current);
+    };
 
     return (
         <>
@@ -65,12 +77,12 @@ export function Login(){
                                     <label htmlFor="">Password</label>
                             </div>
                             <div className="forget">
-                                <label htmlFor=""><input type="checkbox" />Remember Me <a href="/">Forget
+                                <label htmlFor=""><input type="checkbox" value={remember} onChange={handleCheckBox}/>Remember Me <a href="/">Forget
                                     Password</a></label>
                             </div>
                             <button onClick={sendLoginRequest}>Log in</button>
                             <div className="register">
-                                <p>Don't have a account <a href="/">Register</a></p>
+                                <p>Don't have a account <a href="/register">Register</a></p>
                             </div>
                             <div className="message">
                                 {errorMessage ? null : <div className="danger" id="danger">Wrong credentials!</div>}

@@ -2,7 +2,8 @@ import { Route, Routes } from "react-router-dom"
 import {ProductInformation} from "./components/ProductInformation";
 import {Login} from "./pages/Login";
 import {ShowTables} from "./components/ShowTables";
-import {ProductList} from "./components/ProductList";
+import {Register} from "./pages/Register";
+import {ProductsPage} from "./pages/ProductsPage";
 
 function App() {
     return <Routes>
@@ -12,7 +13,8 @@ function App() {
         {/*<Route path="/" element={<ProductList />}/>*/}
         <Route path="/products/:id" element={<ProductInformation />}/>
         <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<ProductList />} />
+        <Route path="/dashboard" element={<ProductsPage />} />
+        <Route path="/register" element={<Register />} />
     </Routes>
 }
 

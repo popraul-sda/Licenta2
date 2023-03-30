@@ -1,4 +1,4 @@
-import "../useless/index.css";
+import "../styles/index.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {useLocation} from "react-router";
 

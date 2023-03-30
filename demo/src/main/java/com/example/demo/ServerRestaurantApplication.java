@@ -47,16 +47,15 @@ public class ServerRestaurantApplication {
 
 //		List<Authority> authorityList=new ArrayList<>();
 //
-//		authorityList.add(createAuthority("USER","User role"));
 //		authorityList.add(createAuthority("ADMIN","Admin role"));
 //
 //		User user=new User();
 //
-//		user.setUserName("raul");
-//		user.setFirstName("Pop");
-//		user.setLastName("K");
+//		user.setUserName("admin");
+//		user.setFirstName("admin");
+//		user.setLastName("admin");
 //
-//		user.setPassword(passwordEncoder.encode("test123"));
+//		user.setPassword(passwordEncoder.encode("admin"));
 //		user.setEnabled(true);
 //		user.setAuthorities(authorityList);
 //
