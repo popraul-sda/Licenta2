@@ -1,6 +1,6 @@
 import "../styles/App.css";
-import {Header} from "../components/Header";
-import {MenuContainer} from "../components/MenuContainer";
+import {Header} from "../components/product-page-components/Header";
+import {MenuContainer} from "../components/product-page-components/MenuContainer";
 import {
     AccountBalanceWalletRounded,
     Chat,
@@ -9,13 +9,22 @@ import {
     Settings,
     SummarizeRounded
 } from "@mui/icons-material";
-import {useEffect} from "react";
-import {BannerName} from "../components/BannerName";
+import {useEffect, useState} from "react";
+import {BannerName} from "../components/product-page-components/BannerName";
+import {SubMenuContainer} from "../components/product-page-components/SubMenuContainer";
+import {MenuCard} from "../components/product-page-components/MenuCard";
+import {ItemCard} from "../components/product-page-components/ItemCard";
 
 export function ProductsPage(){
 
+    const [categories, setCategories] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [activeCategory, setActiveCategory] = useState('Burger');
+
     useEffect(() => {
         const menuLi = document.querySelectorAll("#menu li");
+        getCategories();
+        getProducts();
 
         function setMenuActive(){
             menuLi.forEach(n => n.classList.remove("hover"));
@@ -23,7 +32,40 @@ export function ProductsPage(){
         }
 
         menuLi.forEach(n => n.addEventListener('mouseover', setMenuActive))
+
     }, [])
+
+    function getCategories(){
+        fetch('http://localhost:8080/categories', {
+            headers: {
+                'Authorization':'Bearer ' + sessionStorage.getItem('token')
+            },
+            method: "GET"
+        })
+            .then(function(response){
+                return response.json();
+            }).then(function(data) {
+            setCategories(data)
+        })
+    }
+
+    function getProducts(){
+        fetch('http://localhost:8080/products', {
+            headers: {
+                'Authorization':'Bearer ' + sessionStorage.getItem('token')
+            },
+            method: "GET"
+        })
+            .then(function(response){
+                return response.json();
+            }).then(function(data) {
+            setProducts(data)
+        })
+    }
+
+    function switchCategory(name){
+        setActiveCategory(name);
+    }
 
     return (
       <div className="App">
@@ -39,6 +81,33 @@ export function ProductsPage(){
                            className="deliveryPic"
                       />
                   </div>
+
+                  <div className="dishContainer">
+                      <div className="menuCard">
+                          <SubMenuContainer name={"Menu Category"}/>
+                      </div>
+                      <div className="rowContainer">
+                          {
+                              categories.map(data => (
+                                  <div key={data.id} onClick={() => switchCategory(data.name)}>
+                                      <MenuCard imgSrc={data.picture} name={data.name}/>
+                                  </div>
+                              ))
+                          }
+                      </div>
+                      <div className="dishItemContainer">
+                          {
+                              products.filter(product => product.category === activeCategory)
+                                  .map(product => (<div key={product.id}>
+                                      <ItemCard key={product.id}
+                                                name={product.name}
+                                                imgSrc={product.image}
+                                                price={product.price}
+                                      />
+                                  </div>))
+                          }
+                      </div>
+                  </div>
                   <div className="rightMenu">
 
                   </div>
@@ -48,7 +117,7 @@ export function ProductsPage(){
 
           <div className="bottomMenu">
               <ul id="menu">
-                  <MenuContainer link={'#'} icon = {<HomeRounded />} />
+                  <MenuContainer link={'#'} icon = {<HomeRounded />} isHome/>
                   <MenuContainer link={'#'} icon = {<Chat />} />
                   <MenuContainer link={'#'} icon = {<AccountBalanceWalletRounded />} />
                   <MenuContainer link={'#'} icon = {<Favorite />} />
