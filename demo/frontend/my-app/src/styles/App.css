@@ -602,7 +602,7 @@ main {
 
 .rightMenu {
   width: 350px;
-  height: calc(100% - 55px);
+  height: calc(100% - 210px);
   background: #fff;
   position: fixed;
   right: 0;
@@ -759,9 +759,19 @@ main {
   width: 100%;
   flex: 1;
   min-width: 320px;
+  min-height: 280px;
+  max-height: 300px;
   padding: 0px 10px;
   margin-top: 10px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
+
+.cartContainer::-webkit-scrollbar{
+  display: none;
+}
+
+
 
 .cartItems {
   width: 100%;
@@ -816,7 +826,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 150px;
+  width: 120px;
 }
 
 .cartItem .itemSection .itemQuantity span {
@@ -966,7 +976,8 @@ main {
     position: fixed;
     z-index: 1;
     transform: translateX(0%);
-    top: unset;
+    margin-top: 50px;
+    margin-bottom: 200px;
     padding: 20px 15px;
   }
   .itemCard {
@@ -1073,4 +1084,13 @@ ul{
 
 li{
   margin-top: 45px;
+}
+
+.imgBox img{
+  width: 100px;
+  height: 100px;
+}
+
+.imgBox{
+  display: flex;
 }

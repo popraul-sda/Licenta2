@@ -1,5 +1,6 @@
 import {useState} from "react";
 import "../styles/login.css";
+import {useNavigate} from "react-router-dom";
 
 export function Register(){
 
@@ -9,6 +10,28 @@ export function Register(){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [phone, setPhone] = useState('');
+    let navigate = useNavigate();
+
+    function handleSubmit(){
+        fetch('http://localhost:8080/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "email": email,
+                "firstName": firstName,
+                "lastName": lastName,
+                "phoneNumber": phone,
+                "userName": username,
+                "password": password
+            })
+        })
+            .then()
+
+        navigate("/");
+
+    }
 
     return (
       <>
@@ -46,7 +69,7 @@ export function Register(){
                       <input type="text" required value={password} onChange={e => setPassword(e.target.value)}/>
                       <label htmlFor="">Password</label>
                   </div>
-                  <button>Register</button>
+                  <button onClick={handleSubmit}>Register</button>
               </div>
           </div>
       </section>

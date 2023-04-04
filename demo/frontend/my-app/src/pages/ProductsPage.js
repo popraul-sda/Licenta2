@@ -14,6 +14,7 @@ import {BannerName} from "../components/product-page-components/BannerName";
 import {SubMenuContainer} from "../components/product-page-components/SubMenuContainer";
 import {MenuCard} from "../components/product-page-components/MenuCard";
 import {ItemCard} from "../components/product-page-components/ItemCard";
+import {CartItem} from "../components/product-page-components/CartItem";
 
 export function ProductsPage(){
 
@@ -109,7 +110,23 @@ export function ProductsPage(){
                       </div>
                   </div>
                   <div className="rightMenu">
-
+                      <div className="cartCheckOutContainer">
+                        <div className="cartContainer">
+                            <SubMenuContainer name={"Cart Items"}/>
+                            <div className="cartItems">
+                                <CartItem name={'Burger Bistro'}
+                                          imgSrc={"https://firebasestorage.googleapis.com/v0/b/food-delivery-37c59.appspot.com/o/Images%2Fburger3.png?alt=media&token=0ebe8311-6378-411b-9b6e-d7a6d2a106a2"}
+                                          qty={"4"}
+                                          price={"20"}
+                                />
+                                <CartItem name={'Burger Bistro'}
+                                          imgSrc={"https://firebasestorage.googleapis.com/v0/b/food-delivery-37c59.appspot.com/o/Images%2Fburger3.png?alt=media&token=0ebe8311-6378-411b-9b6e-d7a6d2a106a2"}
+                                          qty={"4"}
+                                          price={"20"}
+                                />
+                            </div>
+                        </div>
+                      </div>
                   </div>
               </div>
           </main>
