@@ -1,7 +1,18 @@
 import {} from "@mui/material";
-import {BarChart, SearchRounded, ShoppingCartRounded} from "@mui/icons-material";
+import {SearchRounded, ShoppingCartRounded} from "@mui/icons-material";
+import PersonIcon from '@mui/icons-material/Person';
+import {useNavigate} from "react-router-dom";
+import {useStateValue} from "./StateProvider";
 
-export function Header(){
+export function Header({name}){
+
+    let navigate = useNavigate();
+    const [{ cart, total }, dispatch] = useStateValue();
+
+    function goToLogin(){
+        navigate("/login");
+    }
+
     return (
       <header>
           <img src="https://firebasestorage.googleapis.com/v0/b/food-delivery-37c59.appspot.com/o/Images%2Flogo.png?alt=media&token=fc228623-ef27-4af4-8ea5-b9ebeeaf47dc"
@@ -17,23 +28,16 @@ export function Header(){
           <div className="shoppingCart" >
               <ShoppingCartRounded className="cart" />
               <div className="cart_content">
-                  <p>2</p>
+                  <p>{cart ? cart.length : '0'}</p>
               </div>
           </div>
 
           <div className="profileContainer">
               <div className="imgBox">
-                  <img src="https://firebasestorage.googleapis.com/v0/b/food-delivery-37c59.appspot.com/o/Images%2Fprofile.jpg?alt=media&token=36821495-39b9-4145-bde3-16c47c6ff937"
-                       alt=""
-                       className="profilePic"
-                  />
+                  <PersonIcon />
               </div>
 
-              <p className="userName">Pop Raul</p>
-          </div>
-
-          <div className="toggleMenu">
-              <BarChart className="toggleIcon" />
+              <p className="userName" onClick={() => goToLogin()}>{name !== "undefined undefined" ? name : "Log in"}</p>
           </div>
       </header>
     );

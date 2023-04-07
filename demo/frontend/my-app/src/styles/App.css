@@ -1086,11 +1086,7 @@ li{
   margin-top: 45px;
 }
 
-.imgBox img{
-  width: 100px;
-  height: 100px;
-}
 
-.imgBox{
+.cardItem{
   display: flex;
 }

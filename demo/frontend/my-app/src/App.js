@@ -12,8 +12,8 @@ function App() {
         {/*<Route path="/masa/:id" element={<TableContents/>}/>*/}
         {/*<Route path="/" element={<ProductList />}/>*/}
         <Route path="/products/:id" element={<ProductInformation />}/>
-        <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<ProductsPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<ProductsPage />} />
         <Route path="/register" element={<Register />} />
     </Routes>
 }

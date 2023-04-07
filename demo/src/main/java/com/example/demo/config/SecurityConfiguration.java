@@ -33,7 +33,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().exceptionHandling()
 				.authenticationEntryPoint(authenticationEntryPoint).and()
-				.authorizeRequests((request) -> request.antMatchers("/h2-console/**", "/api/v1/auth/login", "/register").permitAll()
+				.authorizeRequests((request) -> request.antMatchers("/h2-console/**", "/api/v1/auth/login", "/register", "/products",
+                                "/categories").permitAll()
 						.antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated())
 				.addFilterBefore(new JWTAuthenticationFilter(userService, jWTTokenHelper),
 						UsernamePasswordAuthenticationFilter.class);

@@ -47,7 +47,7 @@ export function Login(){
             return res.json();
         }).then(function (data){
             sessionStorage.setItem('role', data.roles[0].roleCode);
-            navigate('/dashboard');
+            navigate('/', { state: { firstName: data.firstName, lastName: data.lastName } });
         }).catch(error => console.log(error))
 
     }
