@@ -2,9 +2,7 @@ import "../styles/App.css";
 import {Header} from "../components/product-page-components/Header";
 import {MenuContainer} from "../components/product-page-components/MenuContainer";
 import {
-    AccountBalanceWalletRounded,
     Chat,
-    Favorite,
     HomeRounded,
     Settings,
     SummarizeRounded
@@ -31,6 +29,7 @@ export function ProductsPage(){
     const location = useLocation();
     const param1 = location.state?.firstName;
     const param2 = location.state?.lastName;
+    sessionStorage.setItem('name', param1 + " " + param2);
 
     useEffect(() => {
         const menuLi = document.querySelectorAll("#menu li");
@@ -54,7 +53,6 @@ export function ProductsPage(){
         }
 
         menuCard.forEach((n) => n.addEventListener("click", setMenuCardActive));
-
 
     }, [isMainData, cart, total, totalPrice]);
 
@@ -94,12 +92,12 @@ export function ProductsPage(){
     return (
       <div className="App">
           {/* Header Section */}
-          <Header name={param1 + " " + param2}/>
+          <Header />
           {/* Main Container */}
           <main>
               <div className="mainContainer">
                   <div className="banner">
-                      <BannerName name={param1 + " " + param2} discount={"20"} link={"#"}/>
+                      <BannerName name={param1 + " " + param2 !== "undefined undefined" ? param1 + " " + param2 : ""} discount={"20"} link={"#"}/>
                       <img src="https://firebasestorage.googleapis.com/v0/b/food-delivery-37c59.appspot.com/o/Images%2Fdelivery.png?alt=media&token=69b9823d-96df-452a-bd4e-14d27a4cc337"
                            alt=""
                            className="deliveryPic"
@@ -156,7 +154,7 @@ export function ProductsPage(){
                               <div className="totalSection">
                                   <h3>Total</h3>
                                   <p>
-                                      <span>lei </span>{totalPrice}
+                                      <span>lei </span>{total}
                                   </p>
                               </div>
 
@@ -171,12 +169,12 @@ export function ProductsPage(){
 
           <div className="bottomMenu">
               <ul id="menu">
-                  <MenuContainer link={'#'} icon = {<HomeRounded />} isHome/>
-                  <MenuContainer link={'#'} icon = {<Chat />} />
-                  <MenuContainer link={'#'} icon = {<AccountBalanceWalletRounded />} />
-                  <MenuContainer link={'#'} icon = {<Favorite />} />
-                  <MenuContainer link={'#'} icon = {<SummarizeRounded />} />
-                  <MenuContainer link={'#'} icon = {<Settings />} />
+                  <MenuContainer link={'/'} icon = {<HomeRounded />} isHome/>
+                  <MenuContainer link={'/reviews'} icon = {<Chat />} />
+                  <MenuContainer link={'/contact'} icon = {<SummarizeRounded />} />
+                  {
+                      sessionStorage.getItem('role') === 'ADMIN' ? <MenuContainer link={'/managerPortal'} icon = {<Settings />} /> : null
+                  }
                   <div className="indicator">
                   </div>
               </ul>

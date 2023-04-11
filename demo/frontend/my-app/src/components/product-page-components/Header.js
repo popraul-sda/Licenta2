@@ -4,7 +4,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import {useNavigate} from "react-router-dom";
 import {useStateValue} from "./StateProvider";
 
-export function Header({name}){
+export function Header(){
 
     let navigate = useNavigate();
     const [{ cart, total }, dispatch] = useStateValue();
@@ -37,7 +37,7 @@ export function Header({name}){
                   <PersonIcon />
               </div>
 
-              <p className="userName" onClick={() => goToLogin()}>{name !== "undefined undefined" ? name : "Log in"}</p>
+              <p className="userName" onClick={() => goToLogin()}>{sessionStorage.getItem('name') !== "undefined undefined" ? sessionStorage.getItem('name') : "Log in"}</p>
           </div>
       </header>
     );

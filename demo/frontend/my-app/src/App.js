@@ -1,9 +1,13 @@
 import { Route, Routes } from "react-router-dom"
-import {ProductInformation} from "./components/ProductInformation";
+import {ProductInformation} from "./pages/ProductInformation";
 import {Login} from "./pages/Login";
 import {ShowTables} from "./components/ShowTables";
 import {Register} from "./pages/Register";
 import {ProductsPage} from "./pages/ProductsPage";
+import {Reviews} from "./pages/Reviews";
+import {Contact} from "./pages/Contact";
+import {ManagerPortal} from "./pages/ManagerPortal";
+import {Test} from "./pages/Test";
 
 function App() {
     return <Routes>
@@ -11,10 +15,14 @@ function App() {
         {/*<Route path="/outside" element={<ShowTables locationCheck={"O"}/>}/>*/}
         {/*<Route path="/masa/:id" element={<TableContents/>}/>*/}
         {/*<Route path="/" element={<ProductList />}/>*/}
-        <Route path="/products/:id" element={<ProductInformation />}/>
+        <Route path="/product/:name" element={<ProductInformation />}/>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<ProductsPage />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/reviews" element={<Reviews />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/managerPortal" element={<ManagerPortal />} />
+        <Route path="/test" element={<Test />} />
     </Routes>
 }
 
