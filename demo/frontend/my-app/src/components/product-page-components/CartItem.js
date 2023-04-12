@@ -14,30 +14,20 @@ export function CartItem({name, imgSrc, price, itemId}){
     useEffect(() => {
         cartItems = cart;
         setItemPrice(parseInt(qty) * parseFloat(price));
-        // cartItems.forEach(item => {
-        //     amount += item.quantity * parseFloat(item.price)
-        // })
-        dispatch({
-            type: actionType.SET_TOTAL,
-            total: amount,
-        })
     }, [qty, itemPrice]);
 
     const updateQuantity = (action, id) =>{
         if(action === 'add'){
             setQty(qty + 1);
             cartItems.forEach(item => {
-                if (item.name === name) item.quantity = qty;
+                if (item[0].name === name) item[0].quantity++;
             })
+            calculateTotal();
         }
         else{
             if(qty == 1){
                 let index = returnIndex(id);
                 cartItems.splice(index, 1);
-                dispatch({
-                    type: actionType.SET_TOTAL,
-                    total: total - price,
-                })
                 dispatch({
                     type: actionType.SET_CART,
                     cart: cartItems,
@@ -45,8 +35,9 @@ export function CartItem({name, imgSrc, price, itemId}){
             }
             setQty(qty - 1);
             cartItems.forEach(item => {
-                if (item.name === name) item.quantity = qty;
+                if (item[0].name === name) item[0].quantity--;
             })
+            calculateTotal();
         }
     }
 
@@ -60,6 +51,17 @@ export function CartItem({name, imgSrc, price, itemId}){
             counter++;
         });
         return index;
+    }
+
+    function calculateTotal(){
+        cart.forEach(item =>{
+            amount = amount + parseInt(item[0].price) * item[0].quantity;
+        })
+        dispatch({
+            type: actionType.SET_TOTAL,
+            total: amount,
+        })
+        amount = 0;
     }
 
     return (

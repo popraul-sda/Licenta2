@@ -25,7 +25,6 @@ export function ProductsPage(){
         products.filter((element) => element.id === 1)
     );
     const [{ cart, total }, dispatch] = useStateValue();
-    const [totalPrice, setTotalPrice] = useState(0);
     const location = useLocation();
     const param1 = location.state?.firstName;
     const param2 = location.state?.lastName;
@@ -54,7 +53,8 @@ export function ProductsPage(){
 
         menuCard.forEach((n) => n.addEventListener("click", setMenuCardActive));
 
-    }, [isMainData, cart, total, totalPrice]);
+    }, [isMainData, cart]);
+
 
     function getCategories(){
         fetch('http://localhost:8080/categories', {

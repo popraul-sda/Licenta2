@@ -8,11 +8,12 @@ let cartData = [];
 export function ItemCard({imgSrc, name, price, itemId, products}){
 
     let navigate = useNavigate();
-    const [{}, dispatch] = useStateValue();
+    const [{total}, dispatch] = useStateValue();
     const [isCart, setCart] = useState(null);
 
     useEffect(() => {
         if (isCart) {
+            isCart[0].quantity = 1;
             cartData.push(isCart);
             dispatch({
                 type: actionType.SET_CART,
@@ -24,6 +25,20 @@ export function ItemCard({imgSrc, name, price, itemId, products}){
     function productDetails(name){
         const path = "/product/" + name.replace(/\s+/g, '');
         navigate(path, { state: { data: products.filter(product => product.name === name) } });
+    }
+
+    function addItem(){
+        setCart(products.filter((n) => n.id === itemId));
+        if (total === 0){
+            dispatch({
+                type: actionType.SET_TOTAL,
+                total: parseInt(price),
+            });
+        }
+        else dispatch({
+            type: actionType.SET_TOTAL,
+            total: total + parseInt(price),
+        });
     }
 
     return (
@@ -42,7 +57,7 @@ export function ItemCard({imgSrc, name, price, itemId, products}){
                   </div>
                   <i className="addToCart"
                      onClick={() => {
-                         setCart(products.filter((n) => n.id === itemId));
+                         addItem()
                      }}
                   >
                       <AddRounded />
