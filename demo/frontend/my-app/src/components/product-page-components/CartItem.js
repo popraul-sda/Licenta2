@@ -8,7 +8,7 @@ let amount = 0;
 export function CartItem({name, imgSrc, price, itemId}){
 
     const [qty, setQty] = useState(1);
-    const [{cart, total}, dispatch] = useStateValue();
+    const [{cart}, dispatch] = useStateValue();
     const [itemPrice, setItemPrice] = useState(parseInt(qty) * parseFloat(price))
 
     useEffect(() => {

@@ -28,7 +28,7 @@ export function Reviews(){
                       <MenuContainer link={'/reviews'} icon = {<Chat />} />
                       <MenuContainer link={'/contact'} icon = {<SummarizeRounded />} />
                       {
-                          sessionStorage.getItem('role') ? sessionStorage.getItem('role') === 'ADMIN' ? <MenuContainer link={'/settings'} icon = {<Settings />} /> : null : null
+                          sessionStorage.getItem('role') ? sessionStorage.getItem('role') === 'ADMIN' ? <MenuContainer link={'/managerPortal'} icon = {<Settings />} /> : null : null
                       }
                       <div className="indicator">
                       </div>

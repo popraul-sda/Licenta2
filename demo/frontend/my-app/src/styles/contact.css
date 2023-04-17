@@ -1,0 +1,61 @@
+.center-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 800px;
+    margin-top: 150px;
+    margin-left:350px;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+}
+
+.address, .schedule, .contact, .delivery-fee {
+    text-align: center;
+    margin-bottom: 40px;
+    flex-basis: 23%;
+}
+
+.address h2, .schedule h2, .contact h2, .delivery-fee h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+}
+
+.address p, .schedule ul, .schedule li, .contact p, .delivery-fee p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #666;
+}
+
+.schedule ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.schedule li {
+    margin-bottom: 5px;
+}
+
+.contact img {
+    max-width: 50px;
+    margin: 10px;
+}
+
+.delivery-fee p {
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .center-container {
+        flex-wrap: wrap;
+    }
+
+    .address, .schedule, .contact, .delivery-fee {
+        flex-basis: 100%;
+    }
+}

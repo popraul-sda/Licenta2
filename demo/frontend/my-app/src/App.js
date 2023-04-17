@@ -8,6 +8,7 @@ import {Reviews} from "./pages/Reviews";
 import {Contact} from "./pages/Contact";
 import {ManagerPortal} from "./pages/ManagerPortal";
 import {Test} from "./pages/Test";
+import {CheckOutPage} from "./pages/CheckOutPage";
 
 function App() {
     return <Routes>
@@ -23,6 +24,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/managerPortal" element={<ManagerPortal />} />
         <Route path="/test" element={<Test />} />
+        <Route path="/checkout" element={<CheckOutPage />} />
     </Routes>
 }
 

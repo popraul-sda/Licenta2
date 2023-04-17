@@ -15,6 +15,9 @@ import {ItemCard} from "../components/product-page-components/ItemCard";
 import {CartItem} from "../components/product-page-components/CartItem";
 import {useStateValue} from "../components/product-page-components/StateProvider";
 import {useLocation} from "react-router";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate  } from 'react-router-dom';
 
 export function ProductsPage(){
 
@@ -24,10 +27,12 @@ export function ProductsPage(){
     const [isMainData, setMainData] = useState(
         products.filter((element) => element.id === 1)
     );
-    const [{ cart, total }, dispatch] = useStateValue();
+    const [{ cart }] = useStateValue();
+    const [{ total }] = useStateValue();
     const location = useLocation();
     const param1 = location.state?.firstName;
     const param2 = location.state?.lastName;
+    let navigate = useNavigate();
     sessionStorage.setItem('name', param1 + " " + param2);
 
     useEffect(() => {
@@ -89,6 +94,10 @@ export function ProductsPage(){
         setMainData(products.filter((element) => element.id === id));
     }
 
+    function checkout(){
+        cart.length !== 0 ? navigate("/checkout") : toast("Cart is empty!");
+    }
+
     return (
       <div className="App">
           {/* Header Section */}
@@ -134,7 +143,7 @@ export function ProductsPage(){
                   </div>
                   <div className="rightMenu">
 
-                      {!cart ? <div>Cart is empty.</div> :
+                      {!cart ? <div>Cart is empty.</div> : cart.length === 0 ? <div>Cart is empty.</div> :
                           <div className="cartCheckOutContainer">
                               <div className="cartContainer">
                                   <SubMenuContainer name={"Cart Items"}/>
@@ -151,14 +160,17 @@ export function ProductsPage(){
                                       }
                                   </div>
                               </div>
+                              {
+                                  cart ? total >= 50 ? <p>Taxa transport:<span className="space"></span>gratuit</p> : <p>Taxa transport:<span className="space"></span> lei 10</p> : null
+                              }
                               <div className="totalSection">
                                   <h3>Total</h3>
                                   <p>
-                                      <span>lei </span>{total}
+                                      <span>lei </span>{total >= 50 ? total : total + 10}
                                   </p>
                               </div>
 
-                              <button className="checkOut">Check Out</button>
+                              <button className="checkOut" onClick={() => checkout()}>Check Out</button>
                           </div>
                       }
 
@@ -179,6 +191,7 @@ export function ProductsPage(){
                   </div>
               </ul>
           </div>
+          <ToastContainer />
       </div>
     );
 }

@@ -28,7 +28,9 @@ export function ProductInformation(){
                     <div className="product-description">
                         <span>{product[0].category}</span>
                         <h1>{product[0].name}</h1>
-                        <p>{product[0].description}</p>
+                        <p>
+                            {product[0].description}
+                        </p>
                     </div>
                     <div className="product-price">
                         <span>{product[0].price} lei</span>

@@ -3,6 +3,8 @@ import {useStateValue} from "./StateProvider";
 import {useEffect, useState} from "react";
 import {actionType} from "./reducer";
 import {useNavigate} from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 let cartData = [];
 
 export function ItemCard({imgSrc, name, price, itemId, products}){
@@ -10,15 +12,20 @@ export function ItemCard({imgSrc, name, price, itemId, products}){
     let navigate = useNavigate();
     const [{total}, dispatch] = useStateValue();
     const [isCart, setCart] = useState(null);
+    const [isDuplicate, setIsDuplicate] = useState(false);
 
     useEffect(() => {
-        if (isCart) {
+        if (isCart && isDuplicate === false) {
             isCart[0].quantity = 1;
             cartData.push(isCart);
+            setIsDuplicate(true);
             dispatch({
                 type: actionType.SET_CART,
                 cart: cartData,
             });
+        }
+        else if (isDuplicate) {
+            toast("Item already in cart! Change the quantity with the plus sign below!");
         }
     }, [isCart]);
 
@@ -34,8 +41,10 @@ export function ItemCard({imgSrc, name, price, itemId, products}){
                 type: actionType.SET_TOTAL,
                 total: parseInt(price),
             });
+            setIsDuplicate(false);
         }
-        else dispatch({
+        else if (isDuplicate === false)
+            dispatch({
             type: actionType.SET_TOTAL,
             total: total + parseInt(price),
         });
@@ -64,6 +73,7 @@ export function ItemCard({imgSrc, name, price, itemId, products}){
                   </i>
               </div>
           </div>
+          <ToastContainer />
       </div>
     );
 }

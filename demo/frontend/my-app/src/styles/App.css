@@ -1085,3 +1085,8 @@ li{
 .cardItem{
   display: flex;
 }
+
+.space{
+  display: inline-block;
+  width: 145px; /* Change the width to increase or decrease the space */
+}

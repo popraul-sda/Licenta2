@@ -7,7 +7,7 @@ import {useStateValue} from "./StateProvider";
 export function Header(){
 
     let navigate = useNavigate();
-    const [{ cart, total }, dispatch] = useStateValue();
+    const [{cart}] = useStateValue();
 
     function goToLogin(){
         navigate("/login");
