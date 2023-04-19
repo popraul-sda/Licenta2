@@ -1,13 +1,17 @@
 import {useState} from "react";
 import "../styles/login.css";
 import { useNavigate  } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {useLocation} from "react-router";
 
 export function Login(){
 
     const [username, setUsername] = useState(localStorage.getItem('username'));
     const [password, setPassword] = useState(localStorage.getItem('password'));
     const [remember, setRemember] = useState(false);
-    const [errorMessage, setErrormessage] = useState(true);
+    const location = useLocation();
+    const param1 = location.state?.href;
     let navigate = useNavigate();
 
     function sendLoginRequest() {
@@ -30,9 +34,8 @@ export function Login(){
         }).then(function(data) {
             sessionStorage.setItem('token', data.token);
             getUserInfo();
-        }).catch(error => {
-            setErrormessage(false);
-            console.log(error);
+        }).catch(() => {
+            toast("Wrong credentials!")
         })
 
     }
@@ -47,7 +50,10 @@ export function Login(){
             return res.json();
         }).then(function (data){
             sessionStorage.setItem('role', data.roles[0].roleCode);
-            navigate('/', { state: { firstName: data.firstName, lastName: data.lastName } });
+            sessionStorage.setItem('name', data.firstName + " " + data.lastName);
+            sessionStorage.setItem('email', data.email);
+            sessionStorage.setItem('phone_number', data.phone_number);
+            navigate(param1);
         }).catch(error => console.log(error))
 
     }
@@ -84,10 +90,8 @@ export function Login(){
                             <div className="register">
                                 <p>Don't have a account <a href="/register">Register</a></p>
                             </div>
-                            <div className="message">
-                                {errorMessage ? null : <div className="danger" id="danger">Wrong credentials!</div>}
-                            </div>
                     </div>
+                    <ToastContainer />
                 </div>
             </section>
             <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

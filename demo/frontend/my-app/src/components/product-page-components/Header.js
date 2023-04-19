@@ -10,7 +10,7 @@ export function Header(){
     const [{cart}] = useStateValue();
 
     function goToLogin(){
-        navigate("/login");
+        sessionStorage.getItem('name') ? navigate("/account") : navigate("/login", { state: { href: window.location.pathname} });
     }
 
     return (
@@ -37,7 +37,7 @@ export function Header(){
                   <PersonIcon />
               </div>
 
-              <p className="userName" onClick={() => goToLogin()}>{sessionStorage.getItem('name') !== "undefined undefined" ? sessionStorage.getItem('name') : "Log in"}</p>
+              <p className="userName" onClick={() => goToLogin()}>{sessionStorage.getItem('name')  ? sessionStorage.getItem('name') : "Log in"}</p>
           </div>
       </header>
     );

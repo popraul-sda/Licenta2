@@ -14,7 +14,6 @@ import {MenuCard} from "../components/product-page-components/MenuCard";
 import {ItemCard} from "../components/product-page-components/ItemCard";
 import {CartItem} from "../components/product-page-components/CartItem";
 import {useStateValue} from "../components/product-page-components/StateProvider";
-import {useLocation} from "react-router";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate  } from 'react-router-dom';
@@ -29,11 +28,7 @@ export function ProductsPage(){
     );
     const [{ cart }] = useStateValue();
     const [{ total }] = useStateValue();
-    const location = useLocation();
-    const param1 = location.state?.firstName;
-    const param2 = location.state?.lastName;
     let navigate = useNavigate();
-    sessionStorage.setItem('name', param1 + " " + param2);
 
     useEffect(() => {
         const menuLi = document.querySelectorAll("#menu li");
@@ -106,7 +101,7 @@ export function ProductsPage(){
           <main>
               <div className="mainContainer">
                   <div className="banner">
-                      <BannerName name={param1 + " " + param2 !== "undefined undefined" ? param1 + " " + param2 : ""} discount={"20"} link={"#"}/>
+                      <BannerName name={sessionStorage.getItem('name') ? sessionStorage.getItem('name') : ""} discount={"20"} link={"#"}/>
                       <img src="https://firebasestorage.googleapis.com/v0/b/food-delivery-37c59.appspot.com/o/Images%2Fdelivery.png?alt=media&token=69b9823d-96df-452a-bd4e-14d27a4cc337"
                            alt=""
                            className="deliveryPic"
