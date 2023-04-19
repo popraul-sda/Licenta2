@@ -37,38 +37,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().exceptionHandling()
-				.authenticationEntryPoint(authenticationEntryPoint).and()
-				.authorizeRequests((request) -> request.antMatchers("/h2-console/**", "/api/v1/auth/login", "/register", "/products",
+                .authenticationEntryPoint(authenticationEntryPoint).and()
+                .authorizeRequests((request) -> request.antMatchers("/h2-console/**", "/api/v1/auth/login", "/register", "/products",
                                 "/categories", "/logout").permitAll()
-						.antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated())
-				.addFilterBefore(new JWTAuthenticationFilter(userService, jWTTokenHelper),
-						UsernamePasswordAuthenticationFilter.class);
+                        .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated())
+                .addFilterBefore(new JWTAuthenticationFilter(userService, jWTTokenHelper),
+                        UsernamePasswordAuthenticationFilter.class);
 
-		http.csrf().disable().cors().and().headers().frameOptions().disable();
+        http.csrf().disable().cors().and().headers().frameOptions().disable();
 
-        http
-                // ...
-                .logout()
-                    .logoutUrl("/logout") // the URL mapping for logout requests
-                    .logoutSuccessUrl("/") // the URL to redirect to after successful logout
-                    .invalidateHttpSession(true) // invalidate the user's session
-                    .deleteCookies("JSESSIONID") // delete the JSESSIONID cookie
-                    .permitAll() // allow all users to access the logout URL
-                    .and()
-                // ...
-                .csrf().disable(); // disable CSRF protection for logout requests
-
-    }
-
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000")); // the URL of your client application
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-        configuration.setAllowCredentials(true);
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
     }
 
     @Bean
