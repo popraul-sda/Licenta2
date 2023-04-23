@@ -3,6 +3,8 @@ import {SearchRounded, ShoppingCartRounded} from "@mui/icons-material";
 import PersonIcon from '@mui/icons-material/Person';
 import {useNavigate} from "react-router-dom";
 import {useStateValue} from "./StateProvider";
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 export function Header(){
 
@@ -11,6 +13,17 @@ export function Header(){
 
     function goToLogin(){
         sessionStorage.getItem('name') ? navigate("/account") : navigate("/login", { state: { href: window.location.pathname} });
+    }
+
+    function logOut(){
+        fetch('http://localhost:8080/logout', {
+            method: "GET"
+        }).then(function(res){
+            console.log(res);
+        })
+
+        sessionStorage.clear();
+        window.location.reload();
     }
 
     return (
@@ -36,8 +49,15 @@ export function Header(){
               <div className="imgBox">
                   <PersonIcon />
               </div>
-
-              <p className="userName" onClick={() => goToLogin()}>{sessionStorage.getItem('name')  ? sessionStorage.getItem('name') : "Log in"}</p>
+                  {
+                    sessionStorage.getItem('name')  ?
+                        <DropdownButton id="dropdown-basic-button" variant="Secondary" className="log-button" title={sessionStorage.getItem('name')}>
+                            <Dropdown.Item onClick={() => goToLogin()}>Account</Dropdown.Item>
+                            <hr />
+                            <Dropdown.Item onClick={() => logOut()}>Log Out</Dropdown.Item>
+                        </DropdownButton>
+                        : <p className="log-p" onClick={() => goToLogin()}>Log in</p>
+                  }
           </div>
       </header>
     );

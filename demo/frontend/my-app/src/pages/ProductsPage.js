@@ -1,12 +1,5 @@
 import "../styles/App.css";
 import {Header} from "../components/product-page-components/Header";
-import {MenuContainer} from "../components/product-page-components/MenuContainer";
-import {
-    Chat,
-    HomeRounded,
-    Settings,
-    SummarizeRounded
-} from "@mui/icons-material";
 import {useEffect, useState} from "react";
 import {BannerName} from "../components/product-page-components/BannerName";
 import {SubMenuContainer} from "../components/product-page-components/SubMenuContainer";
@@ -17,6 +10,7 @@ import {useStateValue} from "../components/product-page-components/StateProvider
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate  } from 'react-router-dom';
+import {BottomMenu} from "../components/BottomMenu";
 
 export function ProductsPage(){
 
@@ -31,16 +25,8 @@ export function ProductsPage(){
     let navigate = useNavigate();
 
     useEffect(() => {
-        const menuLi = document.querySelectorAll("#menu li");
         getCategories();
         getProducts();
-
-        function setMenuActive(){
-            menuLi.forEach(n => n.classList.remove("hover"));
-            this.classList.add("hover");
-        }
-
-        menuLi.forEach(n => n.addEventListener('mouseover', setMenuActive));
 
         const menuCard = document
             .querySelector(".rowContainer")
@@ -174,18 +160,7 @@ export function ProductsPage(){
           </main>
           {/* Bottom Menu */}
 
-          <div className="bottomMenu">
-              <ul id="menu">
-                  <MenuContainer link={'/'} icon = {<HomeRounded />} isHome/>
-                  <MenuContainer link={'/reviews'} icon = {<Chat />} />
-                  <MenuContainer link={'/contact'} icon = {<SummarizeRounded />} />
-                  {
-                      sessionStorage.getItem('role') === 'ADMIN' ? <MenuContainer link={'/managerPortal'} icon = {<Settings />} /> : null
-                  }
-                  <div className="indicator">
-                  </div>
-              </ul>
-          </div>
+          <BottomMenu />
           <ToastContainer />
       </div>
     );

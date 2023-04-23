@@ -1,23 +1,9 @@
-import {MenuContainer} from "../components/product-page-components/MenuContainer";
-import {Chat, HomeRounded, Settings, SummarizeRounded} from "@mui/icons-material";
 import "../styles/App.css";
 import {Header} from "../components/product-page-components/Header";
-import {useEffect} from "react";
 import "../styles/contact.css";
+import {BottomMenu} from "../components/BottomMenu";
 
 export function Contact(){
-
-    useEffect(() => {
-        const menuLi = document.querySelectorAll("#menu li");
-
-        function setMenuActive(){
-            menuLi.forEach(n => n.classList.remove("hover"));
-            this.classList.add("hover");
-        }
-
-        menuLi.forEach(n => n.addEventListener('mouseover', setMenuActive));
-
-    }, []);
 
     return (
         <div>
@@ -42,8 +28,8 @@ export function Contact(){
                     <div className="contact">
                         <h2>Contact</h2>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Facebook_icon.svg/800px-Facebook_icon.svg.png" alt="" href="https://facebook.com"/>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Instagram-Icon.png" alt="" />
+                        <a href="https://facebook.com"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Facebook_icon.svg/800px-Facebook_icon.svg.png" alt=""/></a>
+                        <a href="https://www.instagram.com"><img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Instagram-Icon.png" alt="" /></a>
                     </div>
                     <div className="delivery-fee">
                         <h2>Delivery Fee</h2>
@@ -51,18 +37,7 @@ export function Contact(){
                         <p>10 lei pentru comenzile mai mici de 50 lei</p>
                     </div>
             </div>
-            <div className="bottomMenu">
-                <ul id="menu">
-                    <MenuContainer link={'/'} icon = {<HomeRounded />} isHome/>
-                    <MenuContainer link={'/reviews'} icon = {<Chat />} />
-                    <MenuContainer link={'/contact'} icon = {<SummarizeRounded />} />
-                    {
-                        sessionStorage.getItem('role') ? sessionStorage.getItem('role') === 'ADMIN' ? <MenuContainer link={'/managerPortal'} icon = {<Settings />} /> : null : null
-                    }
-                    <div className="indicator">
-                    </div>
-                </ul>
-            </div>
+            <BottomMenu />
         </div>
     );
 }

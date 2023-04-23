@@ -1090,3 +1090,42 @@ li{
   display: inline-block;
   width: 145px; /* Change the width to increase or decrease the space */
 }
+
+.log-button{
+  margin-top: -20px;
+}
+
+.log-p{
+  margin-top: 10px;
+}
+
+.menu-manager {
+  margin-top: 100px;
+  display: flex; /* makes the buttons align horizontally */
+  justify-content: center; /* centers the buttons horizontally */
+  align-items: center; /* centers the buttons vertically */
+  padding: 10px; /* adds some padding around the buttons */
+  background-color: #f2f2f2; /* sets a background color */
+}
+
+.menu-manager button {
+  margin: 0 10px; /* adds some margin between the buttons */
+  font-size: 16px; /* sets the font size of the buttons */
+  font-weight: bold; /* makes the text bold */
+  text-transform: uppercase; /* makes the text uppercase */
+  border-radius: 5px; /* adds rounded corners to the buttons */
+}
+
+.menu-manager button:hover {
+  background-color: #ddd; /* changes the background color when the button is hovered */
+  cursor: pointer; /* changes the cursor to a pointer when the button is hovered */
+}
+
+.menu-manager button:focus {
+  outline: none; /* removes the outline when the button is focused */
+}
+
+.menu-manager button:active {
+  transform: scale(0.95); /* reduces the size of the button when it's clicked */
+}
+

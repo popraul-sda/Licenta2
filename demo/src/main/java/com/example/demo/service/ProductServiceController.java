@@ -47,4 +47,17 @@ public class ProductServiceController {
         productRepository.deleteById(id);
         return new ResponseEntity<>("Product Data Deleted", HttpStatus.OK);
     }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @RequestMapping(value = "/products/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateProduct(@PathVariable("id") Long id, @RequestBody ProductDTO productDTO){
+        Product product = new Product();
+        product.setDescription(productDTO.getDescription());
+        product.setCategory(productDTO.getCategory());
+        product.setName(productDTO.getName());
+        product.setPrice(productDTO.getPrice());
+        productRepository.deleteById(id);
+        productRepository.save(product);
+        return new ResponseEntity<>("Product update", HttpStatus.OK);
+    }
 }
