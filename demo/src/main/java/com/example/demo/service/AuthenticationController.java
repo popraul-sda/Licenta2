@@ -9,6 +9,7 @@ import java.util.List;
 import com.example.demo.config.JWTTokenHelper;
 import com.example.demo.persitence.Authority;
 import com.example.demo.persitence.User;
+import com.example.demo.repository.UserDetailsRepository;
 import com.example.demo.request.AuthenticationRequest;
 import com.example.demo.response.LoginResponse;
 import com.example.demo.response.UserInfo;
@@ -41,6 +42,9 @@ public class AuthenticationController {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private UserDetailsRepository userRepository;
 
     @PostMapping("/auth/login")
     public ResponseEntity<?> login(@RequestBody AuthenticationRequest authenticationRequest) throws InvalidKeySpecException, NoSuchAlgorithmException {
@@ -88,4 +92,29 @@ public class AuthenticationController {
 
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/auth/user")
+    public ResponseEntity<?> updateUser(@RequestBody User user, Principal principal) {
+        User currentUser = (User) userDetailsService.loadUserByUsername(principal.getName());
+
+        // Update user data
+        currentUser.setFirstName(user.getFirstName());
+        currentUser.setLastName(user.getLastName());
+        currentUser.setEmail(user.getEmail());
+        currentUser.setPhoneNumber(user.getPhoneNumber());
+        // ...
+
+        // Save updated user data
+        User updatedUser = userRepository.save(currentUser);
+
+        UserInfo userInfo = new UserInfo();
+        userInfo.setFirstName(updatedUser.getFirstName());
+        userInfo.setLastName(updatedUser.getLastName());
+        userInfo.setEmail(updatedUser.getEmail());
+        userInfo.setPhone_number(updatedUser.getPhoneNumber());
+        userInfo.setRoles(updatedUser.getAuthorities().toArray());
+
+        return ResponseEntity.ok(userInfo);
+    }
+
 }
