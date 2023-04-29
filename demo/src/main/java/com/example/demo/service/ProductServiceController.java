@@ -1,7 +1,7 @@
 package com.example.demo.service;
 import com.example.demo.dao.ProductServiceDAO;
-import com.example.demo.model.ProductDTO;
-import com.example.demo.persitence.Product;
+import com.example.demo.DTO.ProductDTO;
+import com.example.demo.entity.Product;
 import com.example.demo.repository.ProductRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -24,13 +23,13 @@ public class ProductServiceController {
         this.productServiceDAO = productServiceDAO;
     }
 
-    @RequestMapping(value = "/products")
+    @GetMapping("/products")
     public ResponseEntity<Object> getProducts() {
         return new ResponseEntity<>(productRepository.findAll().stream().map(o -> new ProductDTO(o.getId(), o.getName(),
                 o.getDescription(), o.getPrice(), o.getCategory(), o.getImage())).collect(Collectors.toList()), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/products", method = RequestMethod.POST)
+    @PostMapping("/products")
     public ResponseEntity<Object> createProduct(@RequestBody ProductDTO productDTO){
         Product product = new Product();
         product.setDescription(productDTO.getDescription());
@@ -42,14 +41,14 @@ public class ProductServiceController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping(value = "/products/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping("/products/{id}")
     public ResponseEntity<Object> deleteProduct(@PathVariable("id") Long id){
         productRepository.deleteById(id);
         return new ResponseEntity<>("Product Data Deleted", HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping(value = "/products/{id}", method = RequestMethod.PUT)
+    @PutMapping("/products/{id}")
     public ResponseEntity<Object> updateProduct(@PathVariable("id") Long id, @RequestBody ProductDTO productDTO){
         Product product = new Product();
         product.setDescription(productDTO.getDescription());

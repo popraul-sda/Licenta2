@@ -1,4 +1,4 @@
-package com.example.demo.persitence;
+package com.example.demo.entity;
 
 import java.util.Collection;
 import java.util.Date;

@@ -1,6 +1,6 @@
 package com.example.demo.dao;
 
-import com.example.demo.persitence.Tables;
+import com.example.demo.entity.Tables;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;

@@ -1,6 +1,5 @@
 package com.example.demo.service;
-import com.example.demo.dao.TablesServiceDAO;
-import com.example.demo.model.TablesDTO;
+import com.example.demo.DTO.TablesDTO;
 import com.example.demo.repository.TablesRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

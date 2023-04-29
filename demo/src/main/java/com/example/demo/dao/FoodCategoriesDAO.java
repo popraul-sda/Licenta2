@@ -1,14 +1,12 @@
 package com.example.demo.dao;
 
-import com.example.demo.persitence.FoodCategories;
-import com.example.demo.persitence.Product;
+import com.example.demo.entity.FoodCategories;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.util.Formatter;
 import java.util.List;
 
 @Repository

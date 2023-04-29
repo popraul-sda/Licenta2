@@ -1,6 +1,6 @@
 package com.example.demo.dao;
 
-import com.example.demo.persitence.Product;
+import com.example.demo.entity.Product;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

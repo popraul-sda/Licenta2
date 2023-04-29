@@ -16,13 +16,9 @@
 
 package com.example.demo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 
-import com.example.demo.persitence.Authority;
-import com.example.demo.persitence.User;
+import com.example.demo.entity.Authority;
 import com.example.demo.repository.UserDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
