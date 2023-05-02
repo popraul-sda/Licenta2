@@ -1,6 +1,6 @@
 import {Header} from "../components/product-page-components/Header";
 import "../styles/App.css";
-import {BottomMenu} from "../components/BottomMenu";
+import {BottomMenu} from "../components/product-page-components/BottomMenu";
 
 export function Reviews(){
 

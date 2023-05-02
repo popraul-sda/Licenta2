@@ -1,6 +1,6 @@
 import {useEffect} from "react";
-import "../styles/App.css";
-import {MenuContainer} from "../components/product-page-components/MenuContainer";
+import "../../styles/App.css";
+import {MenuContainer} from "./MenuContainer";
 import {Chat, HomeRounded, Settings, SummarizeRounded} from "@mui/icons-material";
 
 export function BottomMenu(){

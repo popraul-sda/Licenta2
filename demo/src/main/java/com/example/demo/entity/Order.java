@@ -32,7 +32,10 @@ public class Order{
     private String paymentMethod;
 
     @Column(name = "CREATED_ON")
-    private LocalDateTime createdAt;
+    private String createdOn;
+
+    @Column(name = "TOTAL")
+    private int total;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "FK_ORDER", referencedColumnName = "id")

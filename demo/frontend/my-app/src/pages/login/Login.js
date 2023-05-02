@@ -1,5 +1,5 @@
 import {useState} from "react";
-import "../styles/login.css";
+import "../../styles/login.css";
 import { useNavigate  } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,6 +15,8 @@ export function Login(){
     let navigate = useNavigate();
 
     function sendLoginRequest() {
+
+        console.log(param1)
 
         const reqBody = {
             "userName": username,
@@ -53,7 +55,7 @@ export function Login(){
             sessionStorage.setItem('name', data.firstName + " " + data.lastName);
             sessionStorage.setItem('email', data.email);
             sessionStorage.setItem('phone_number', data.phone_number);
-            navigate(param1);
+            param1 === undefined ? navigate("/") : navigate(param1);
         }).catch(error => console.log(error))
 
     }
@@ -83,12 +85,12 @@ export function Login(){
                                     <label htmlFor="">Password</label>
                             </div>
                             <div className="forget">
-                                <label htmlFor=""><input type="checkbox" value={remember} onChange={handleCheckBox}/>Remember Me <a href="/">Forget
+                                <label htmlFor=""><input type="checkbox" value={remember} onChange={handleCheckBox}/>Remember Me <a href="/Users/USER/Desktop/ServerClientLicenta/ServerRestaurant/demo/frontend/my-app/src/pages">Forget
                                     Password</a></label>
                             </div>
                             <button onClick={sendLoginRequest}>Log in</button>
                             <div className="register">
-                                <p>Don't have a account <a href="/register">Register</a></p>
+                                <p>Don't have a account <a href="/Users/USER/Desktop/ServerClientLicenta/ServerRestaurant/demo/frontend/my-app/src/pages/login/Register">Register</a></p>
                             </div>
                     </div>
                     <ToastContainer />

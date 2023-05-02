@@ -32,6 +32,7 @@ public class ProductServiceController {
     @PostMapping("/products")
     public ResponseEntity<Object> createProduct(@RequestBody ProductDTO productDTO){
         Product product = new Product();
+        product.setId(product.getId());
         product.setDescription(productDTO.getDescription());
         product.setCategory(productDTO.getCategory());
         product.setName(productDTO.getName());

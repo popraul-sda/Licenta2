@@ -14,7 +14,11 @@ public class FoodCategories implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private String name,picture;
+
+    @Column(name = "NAME")
+    private String name;
+    @Column(name = "PICTURE")
+    private String picture;
 
 
     public FoodCategories() {

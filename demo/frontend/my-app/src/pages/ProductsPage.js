@@ -10,7 +10,7 @@ import {useStateValue} from "../components/product-page-components/StateProvider
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate  } from 'react-router-dom';
-import {BottomMenu} from "../components/BottomMenu";
+import {BottomMenu} from "../components/product-page-components/BottomMenu";
 
 export function ProductsPage(){
 

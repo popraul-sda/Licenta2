@@ -1,7 +1,7 @@
 import "../styles/App.css";
 import {Header} from "../components/product-page-components/Header";
 import "../styles/contact.css";
-import {BottomMenu} from "../components/BottomMenu";
+import {BottomMenu} from "../components/product-page-components/BottomMenu";
 
 export function Contact(){
 

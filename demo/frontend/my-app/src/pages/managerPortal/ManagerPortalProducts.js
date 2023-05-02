@@ -1,15 +1,15 @@
 import {useEffect, useState} from "react";
 import Table from 'react-bootstrap/Table';
 import Button from "react-bootstrap/Button";
-import {Header} from "../components/product-page-components/Header";
-import "../styles/App.css";
-import "../styles/managerPortalProducts.css";
+import {Header} from "../../components/product-page-components/Header";
+import "../../styles/App.css";
+import "../../styles/managerPortalProducts.css";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import {BottomMenu} from "../components/BottomMenu";
+import {BottomMenu} from "../../components/product-page-components/BottomMenu";
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {AddProduct} from "../components/AddProduct";
+import {AddProduct} from "./AddProduct";
 
 export function ManagerPortalProducts() {
 

@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -8,9 +9,10 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "products")
-public class Product implements Serializable {
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
+public class Product{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column(name = "NAME")
     private String name;

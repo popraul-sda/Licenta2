@@ -1,5 +1,5 @@
 import {useState} from "react";
-import "../styles/accountPage.css";
+import "../../styles/accountPage.css";
 import {toast, ToastContainer} from "react-toastify";
 
 export function AccountDetails(){

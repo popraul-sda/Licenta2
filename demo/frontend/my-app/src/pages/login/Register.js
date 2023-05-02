@@ -1,5 +1,5 @@
 import {useState} from "react";
-import "../styles/login.css";
+import "../../styles/login.css";
 import {useNavigate} from "react-router-dom";
 
 export function Register(){
@@ -29,7 +29,7 @@ export function Register(){
         })
             .then()
 
-        navigate("/");
+        navigate("/login");
 
     }
 
