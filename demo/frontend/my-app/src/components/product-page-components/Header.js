@@ -5,11 +5,13 @@ import {useNavigate} from "react-router-dom";
 import {useStateValue} from "./StateProvider";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import {useState} from "react";
 
 export function Header(){
 
     let navigate = useNavigate();
     const [{cart}] = useStateValue();
+    const [search, setSearch] = useState('');
 
     function goToLogin(){
         sessionStorage.getItem('name') ? navigate("/account") : navigate("/login", { state: { href: window.location.pathname} });
@@ -23,7 +25,7 @@ export function Header(){
         })
 
         sessionStorage.clear();
-        window.location.reload();
+        navigate("/");
     }
 
     return (
@@ -33,10 +35,18 @@ export function Header(){
                className="logo"
           />
 
-          <div className="inputBox" >
-              <SearchRounded className="SearchIcon" />
-              <input type="text" placeholder="Search" />
-          </div>
+          {
+              window.location.pathname === "/" ?
+                  <div className="inputBox" >
+                      <SearchRounded className="SearchIcon" />
+                      <input id="search" type="text" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)}/>
+                  </div>
+                  :
+                  <div className="inputBox" >
+                      <SearchRounded className="SearchIcon" />
+                      <input type="text" placeholder="Search" disabled />
+                  </div>
+          }
 
           <div className="shoppingCart" >
               <ShoppingCartRounded className="cart" />

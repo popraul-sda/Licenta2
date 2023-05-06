@@ -172,3 +172,16 @@ button:hover{
     margin-top: 40px;
     margin-right: 20px;
 }
+
+.timer-text{
+    position: absolute;
+    margin-top: 150px;
+    font-size: xx-large;
+}
+
+.order-text{
+    position: absolute;
+    margin-top: 100px;
+    margin-left: 100px;
+    font-size: xx-large;
+}

@@ -2,6 +2,7 @@ package com.example.demo.response;
 
 public class UserInfo {
 
+    public long id;
     private String firstName;
     private String lastName;
     private String userName;
@@ -58,5 +59,11 @@ public class UserInfo {
         this.roles = roles;
     }
 
+    public long getId() {
+        return id;
+    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
 }

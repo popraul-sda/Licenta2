@@ -1,11 +1,10 @@
-export function BannerName({name, discount, link}){
+export function BannerName({name}){
     return (
       <div className="bannerContent">
         <h3>Hello {name}</h3>
         <p>
-            Get free discount for every <span>${discount}</span> purchase
+            Get free delivery for each order above 50 lei
         </p>
-        <a href={link}>Learn More</a>
       </div>
     );
 }

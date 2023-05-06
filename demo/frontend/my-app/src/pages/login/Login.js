@@ -55,6 +55,7 @@ export function Login(){
             sessionStorage.setItem('name', data.firstName + " " + data.lastName);
             sessionStorage.setItem('email', data.email);
             sessionStorage.setItem('phone_number', data.phone_number);
+            sessionStorage.setItem('id', data.id);
             param1 === undefined ? navigate("/") : navigate(param1);
         }).catch(error => console.log(error))
 

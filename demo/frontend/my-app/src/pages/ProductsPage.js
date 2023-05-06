@@ -39,6 +39,8 @@ export function ProductsPage(){
 
         menuCard.forEach((n) => n.addEventListener("click", setMenuCardActive));
 
+        console.log(document.getElementById("search").value)
+
     }, [isMainData, cart]);
 
 

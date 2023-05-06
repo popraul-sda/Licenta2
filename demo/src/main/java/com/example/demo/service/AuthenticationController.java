@@ -63,6 +63,7 @@ public class AuthenticationController {
         User userObj=(User) userDetailsService.loadUserByUsername(user.getName());
 
         UserInfo userInfo=new UserInfo();
+        userInfo.setId(userObj.getId());
         userInfo.setFirstName(userObj.getFirstName());
         userInfo.setLastName(userObj.getLastName());
         userInfo.setEmail(userObj.getEmail());

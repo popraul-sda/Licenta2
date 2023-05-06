@@ -5,7 +5,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import HomeIcon from '@mui/icons-material/Home';
 import {Header} from "../components/product-page-components/Header";
-import {useState} from "react";
+import React, {useState} from "react";
 import "../styles/App.css";
 import Button from 'react-bootstrap/Button';
 import {useNavigate} from "react-router-dom";
@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import "../styles/checkout.css";
 import {useStateValue} from "../components/product-page-components/StateProvider";
 import {BottomMenu} from "../components/product-page-components/BottomMenu";
-import {CurrentOrder} from "./account/CurrentOrder";
+import CountdownTimer from "../components/CountdownTimer/CountdownTimer";
 
 export function CheckOutPage(){
 
@@ -85,7 +85,20 @@ export function CheckOutPage(){
           <Header />
           {
               changeScreen ?
-                  <CurrentOrder countdownTimestampMs={date.getTime() + 30 * 60 * 1000}/>
+                  <div>
+                      <p className="timer-text">Time until your order arrives: </p>
+                      <CountdownTimer countdownTimestampMs={date.getTime() + 30 * 60 * 1000}/>
+                      {
+                          cart ? cart.map(item =>
+                                  <div>
+                                      <p className="order-text">{item[0].quantity} x {item[0].name}   {item[0].price} lei</p>
+                                      <br />
+                                      <br />
+                                  </div>
+                              )
+                              : null
+                      }
+                  </div>
                   :
                   <div className="main-content">
                       <div className="details-container">

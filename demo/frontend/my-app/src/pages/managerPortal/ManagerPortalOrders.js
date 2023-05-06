@@ -7,6 +7,7 @@ import { BottomMenu } from "../../components/product-page-components/BottomMenu"
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React from 'react';
+import Example from "../../Chart";
 
 export function ManagerPortalOrders() {
     const [orders, setOrders] = useState([]);
@@ -48,6 +49,22 @@ export function ManagerPortalOrders() {
         return date1.getTime();
     }
 
+    function getTotalInInterval(){
+
+        let total = 0;
+        let total2 = 0;
+
+        orders.forEach(item => {
+            if(getTime(item.createdOn) >= getTime(startDate) && getTime(item.createdOn) <= getTime(endDate)){
+                total += item.total;
+            }
+            total2 += item.total;
+        })
+
+       if(startDate !== null && endDate !== null) return total
+       else return total2;
+    }
+
     return (
         <div className="product-container">
             <Header />
@@ -57,7 +74,7 @@ export function ManagerPortalOrders() {
                 <label htmlFor="endDate">End date:</label>
                 <input type="date" id="endDate" name="endDate" onChange={handleEndDateChange} />
             </div>
-            <Table striped bordered hover>
+            <Table striped bordered hover className="mt-5 mb-4">
                 <thead>
                 <tr>
                     <th>Order Id</th>
@@ -146,6 +163,10 @@ export function ManagerPortalOrders() {
                         </tbody>
                 }
             </Table>
+            <Example />
+            <div>
+                <p className="total-orders">Total: {getTotalInInterval()}lei</p>
+            </div>
             <BottomMenu />
             <ToastContainer />
         </div>

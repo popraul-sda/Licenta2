@@ -1,28 +1,16 @@
 import React, {useEffect, useState} from "react";
 import Table from "react-bootstrap/Table";
+import "../styles/App.css";
+import "../styles/managerPortalProducts.css";
 
-export function History(){
+export function History({history}){
 
     const [orders, setOrders] = useState([]);
     const [selectedRow, setSelectedRow] = useState(null);
 
     useEffect(() => {
-        getOrders();
+        setOrders(history);
     }, []);
-
-    function getOrders() {
-        fetch("http://localhost:8080/showOrders", {
-            method: "GET",
-        })
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                setOrders(data);
-            });
-
-        setOrders(orders.filter((item) => item.name === sessionStorage.getItem("name")))
-    }
 
     function handleRowClick(id) {
         setSelectedRow(id);
@@ -30,7 +18,7 @@ export function History(){
 
     return (
       <>
-          <Table striped bordered hover style={{marginTop: 100}}>
+          <Table className="history-table mb-4" striped bordered hover>
               <thead>
               <tr>
                   <th>Order Id</th>
@@ -68,6 +56,9 @@ export function History(){
               ))}
               </tbody>
           </Table>
+          <div className="total-orders">
+              <p>{orders.length} Orders in total</p>
+          </div>
       </>
     );
 }
