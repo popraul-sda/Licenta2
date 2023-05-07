@@ -7,7 +7,7 @@ import { BottomMenu } from "../../components/product-page-components/BottomMenu"
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React from 'react';
-import Example from "../../Chart";
+import {Example} from "../../Chart";
 
 export function ManagerPortalOrders() {
     const [orders, setOrders] = useState([]);
@@ -163,7 +163,7 @@ export function ManagerPortalOrders() {
                         </tbody>
                 }
             </Table>
-            <Example />
+            <Example orders={orders}/>
             <div>
                 <p className="total-orders">Total: {getTotalInInterval()}lei</p>
             </div>
