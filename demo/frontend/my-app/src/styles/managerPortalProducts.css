@@ -48,4 +48,23 @@ button {
     margin-top:50px;
 }
 
+.bar-chart{
+    width: 100%;
+    height: 300px;
+}
+
+.bottom-row-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* This will space out the child elements evenly along the row */
+    align-items: center; /* This will center the child elements vertically */
+}
+
+.choose-file{
+    margin-left: 50px;
+    margin-top: 20px;
+}
+
+
+
 

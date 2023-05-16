@@ -1,15 +1,16 @@
 import Button from 'react-bootstrap/Button';
 import {Header} from "../../components/product-page-components/Header";
 import {BottomMenu} from "../../components/product-page-components/BottomMenu";
-import {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import {AccountDetails} from "./AccountDetails";
 import '../../styles/accountPage.css';
 import {CurrentOrder} from "./CurrentOrder";
 import {History} from "../History";
+import '../../styles/managerPortalProducts.css';
 
 export function AccountPage() {
 
-    const [active, setActive] = useState('');
+    const [active, setActive] = useState('active');
     const [orders, setOrders] = useState([]);
     const [activeOrder, setActiveOrder] = useState(0);
     const currentDateInMilliseconds = Date.now();
@@ -53,34 +54,25 @@ export function AccountPage() {
     }
 
     return (
-        <div className="main-container">
+        <div>
             <Header/>
+            <div className="menu-manager">
+                <Button variant="primary" onClick={() => setActive('details')}>Account Details</Button>{' '}
+                <Button variant="primary" onClick={() => setActive('active')}>Active Order</Button>{' '}
+                <Button variant="primary" onClick={() => setActive('history')}>History</Button>{' '}
+            </div>
             {
                 active === 'details' ?
                     <>
-                        <Button variant="danger" className='close' onClick={() => setActive('')}>Close</Button>{' '}
                         <AccountDetails className='details'/>
                     </>
                     :
                     active === 'active' ?
                         <>
-                            <Button variant="danger" className='close' onClick={() => setActive('')}>Close</Button>{' '}
-                            <CurrentOrder countdownTimestampMs={activeOrder} co={currentOrder}/>
+                            <CurrentOrder countdownTimestampMs={activeOrder} co={currentOrder} coTime={activeOrder - 30*60*1000}/>
                         </>
                         :
-                        active === 'history' ?
-                            <>
-                                <Button variant="danger" className='close'
-                                        onClick={() => setActive('')}>Close</Button>{' '}
-                                <History history={orders}/>
-                            </>
-                            :
-                            <>
-                                <Button variant="primary" onClick={() => setActive('details')}>Account
-                                    Details</Button>{' '}
-                                <Button variant="primary" onClick={() => setActive('active')}>Active Order</Button>{' '}
-                                <Button variant="primary" onClick={() => setActive('history')}>History</Button>{' '}
-                            </>
+                        <History history={orders}/>
             }
             {
                 active !== 'history' ?  <BottomMenu/> : null

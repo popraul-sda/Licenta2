@@ -1,15 +1,14 @@
 import {useEffect, useState} from "react";
 import Table from 'react-bootstrap/Table';
 import Button from "react-bootstrap/Button";
-import {Header} from "../../components/product-page-components/Header";
 import "../../styles/App.css";
 import "../../styles/managerPortalProducts.css";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import {BottomMenu} from "../../components/product-page-components/BottomMenu";
-import {ToastContainer, toast} from 'react-toastify';
+import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {AddProduct} from "./AddProduct";
+import DropdownItem from "react-bootstrap/DropdownItem";
 
 export function ManagerPortalProducts() {
 
@@ -20,8 +19,20 @@ export function ManagerPortalProducts() {
     useEffect(() => {
         getCategories();
         getProducts();
-
+        sortProducts();
     }, []);
+
+    function sortProducts(){
+        products.sort((a, b) => {
+            if (a.active === b.active) {
+                return 0;
+            } else if (a.active === 'Active') {
+                return -1;
+            } else {
+                return 1;
+            }
+        });
+    }
 
     function getCategories() {
         fetch('http://localhost:8080/categories', {
@@ -51,25 +62,25 @@ export function ManagerPortalProducts() {
         })
     }
 
-    function removeProduct(id) {
-        let path = 'http://localhost:8080/products/' + id;
+    // function removeProduct(id) {
+    //     let path = 'http://localhost:8080/products/' + id;
+    //
+    //     const updatedProducts = products.filter(product => product.id !== id);
+    //     setProducts(updatedProducts);
+    //
+    //     fetch(path, {
+    //         method: 'DELETE',
+    //         headers: {
+    //             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+    //         }
+    //     })
+    //         .then(res => console.log(res))
+    //
+    //     toast("Product Removed");
+    //
+    // }
 
-        const updatedProducts = products.filter(product => product.id !== id);
-        setProducts(updatedProducts);
-
-        fetch(path, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
-            }
-        })
-            .then(res => console.log(res))
-
-        toast("Product Removed");
-
-    }
-
-    function updateProduct(id, name, description, price, category, image) {
+    function updateProduct(id, name, description, price, category, image, active) {
 
         let path = 'http://localhost:8080/products/' + id;
 
@@ -85,6 +96,7 @@ export function ManagerPortalProducts() {
                 "price": price,
                 "category": category,
                 "image": image,
+                "active": active
             })
         })
             .then(res => null)
@@ -94,7 +106,6 @@ export function ManagerPortalProducts() {
 
     return (
         <div className="product-container">
-            <Header/>
             <Table striped bordered hover>
                 <thead>
                 <tr>
@@ -104,6 +115,7 @@ export function ManagerPortalProducts() {
                     <th>Product Description</th>
                     <th>Product Category</th>
                     <th>Product Image</th>
+                    <th>Product Status</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -196,10 +208,36 @@ export function ManagerPortalProducts() {
                             />
                         </td>
                         <td>
-                            <Button variant="danger" className="remove-button"
-                                    onClick={() => removeProduct(product.id)}>Remove</Button>{' '}
+                            <DropdownButton id="dropdown-basic-button" title={product.active}>
+                                <DropdownItem onClick={(event) => {
+                                    const updatedProducts = products.map((p) => {
+                                        if (p.id === product.id) {
+                                            return {...p, active: "Active"};
+                                        } else {
+                                            return p;
+                                        }
+                                    });
+                                    setProducts(updatedProducts);
+                                }}>
+                                    Active
+                                </DropdownItem>
+                                <DropdownItem onClick={(event) => {
+                                    const updatedProducts = products.map((p) => {
+                                        if (p.id === product.id) {
+                                            return {...p, active: "Inactive"};
+                                        } else {
+                                            return p;
+                                        }
+                                    });
+                                    setProducts(updatedProducts);
+                                }}>
+                                    Inactive
+                                </DropdownItem>
+                            </DropdownButton>
+                        </td>
+                        <td>
                             <Button variant="primary"
-                                    onClick={() => updateProduct(product.id, product.name, product.description, product.price, product.category, product.image)}>Save</Button>{' '}
+                                    onClick={() => updateProduct(product.id, product.name, product.description, product.price, product.category, product.image, product.active)}>Save</Button>{' '}
                         </td>
                     </tr>
                 ))}
@@ -209,7 +247,6 @@ export function ManagerPortalProducts() {
             {
                 add ? <AddProduct categ={categories}/> : null
             }
-            <BottomMenu/>
             <ToastContainer/>
         </div>
     );

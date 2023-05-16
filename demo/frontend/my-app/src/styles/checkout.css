@@ -65,3 +65,30 @@ Button {
     background-color: #f8901c;
     border: 0px;
 }
+
+.order-progress{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 3px dotted black;
+    width: 655px;
+    margin-bottom: -25px;
+}
+
+.order-delivered, .order-received, .order-delivery, .order-inProcess{
+    margin-right: 155px;
+}
+
+.order-progress .large {
+    font-size: 48px;
+}
+
+.active-order-items{
+    margin-left: 50px;
+}
+
+.icon-active{
+    color: darkred;
+}
+
+

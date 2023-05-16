@@ -175,7 +175,7 @@ button:hover{
 
 .timer-text{
     position: absolute;
-    margin-top: 150px;
+    margin-top:-50px;
     font-size: xx-large;
 }
 
@@ -184,4 +184,8 @@ button:hover{
     margin-top: 100px;
     margin-left: 100px;
     font-size: xx-large;
+}
+
+.current-order-main-container{
+    margin-left: 450px;
 }

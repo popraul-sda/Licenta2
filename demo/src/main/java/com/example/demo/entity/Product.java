@@ -25,17 +25,21 @@ public class Product{
     @Column(name = "IMAGE")
     private String image;
 
+    @Column(name = "ACTIVE")
+    private String active;
+
 
     public Product() {
     }
 
-    public Product(Long id, String name, String description, String price, String category, String image) {
+    public Product(Long id, String name, String description, String price, String category, String image, String active) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
         this.image = image;
+        this.active = active;
     }
 
 }

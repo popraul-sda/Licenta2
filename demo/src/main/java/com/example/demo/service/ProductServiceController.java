@@ -28,7 +28,7 @@ public class ProductServiceController {
     @GetMapping("/products")
     public ResponseEntity<Object> getProducts() {
         return new ResponseEntity<>(productRepository.findAll().stream().map(o -> new ProductDTO(o.getId(), o.getName(),
-                o.getDescription(), o.getPrice(), o.getCategory(), o.getImage())).collect(Collectors.toList()), HttpStatus.OK);
+                o.getDescription(), o.getPrice(), o.getCategory(), o.getImage(), o.getActive())).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @PostMapping("/products")
@@ -39,6 +39,8 @@ public class ProductServiceController {
         product.setCategory(productDTO.getCategory());
         product.setName(productDTO.getName());
         product.setPrice(productDTO.getPrice());
+        product.setImage(productDTO.getImage());
+        product.setActive(productDTO.getActive());
         productRepository.save(product);
         return new ResponseEntity<>("Product Data Added", HttpStatus.OK);
     }
@@ -63,6 +65,7 @@ public class ProductServiceController {
             product.setImage(productDTO.getImage());
             product.setName(productDTO.getName());
             product.setPrice(productDTO.getPrice());
+            product.setActive(productDTO.getActive());
             productRepository.save(product);
             return ResponseEntity.ok("Product edited");
         } else {

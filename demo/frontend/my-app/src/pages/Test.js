@@ -1,46 +1,74 @@
 import "../styles/test.css";
+import {useState} from "react";
 
 export function Test(){
+
+    const [selectedImage, setSelectedImage] = useState(null);
+
+        function fileUpload() {
+                const formData = new FormData();
+                formData.append("image", selectedImage);
+                const url = "http://localhost:8080/image";
+
+                fetch(url, {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((response) => response.text())
+                    .then((data) => {
+                        console.log(data);
+                        // Handle success or display a success message
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                        // Handle error or display an error message
+                    });
+        }
+
+    function fileDownload() {
+        const url = "http://localhost:8080/image/user.png";
+
+        fetch(url)
+            .then((response) => response.blob())
+            .then((blob) => {
+                const file = new File([blob], "user.png");
+                setSelectedImage(file);
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                // Handle error or display an error message
+            });
+    }
+
     return (
-        <main className="container">
-            <div className="left-column">
-                <img data-image="black" src="https://pizzanapoleon.ro/wp-content/uploads/2015/10/4.-salami.png" alt=""/>
-                    <img data-image="blue" src="images/blue.png" alt=""/>
-                        <img data-image="red" className="active" src="https://pizzanapoleon.ro/wp-content/uploads/2015/10/4.-salami.png" alt=""/>
-            </div>
-            <div className="right-column">
-                <div className="product-description">
-                    <span>Headphones</span>
-                    <h1>Beats EP</h1>
-                    <p>The preferred choice of a vast range of acclaimed DJs. Punchy, bass-focused sound and high
-                        isolation. Sturdy headband and on-ear cushions suitable for live performance</p>
-                </div>
-                <div className="product-configuration">
-                    <div className="product-color">
-                        <span>Color</span>
+        <div>
+            <h1>Upload and Display Image usign React Hook's</h1>
 
-                        <div className="color-choose">
-                            <div>
-                                <input data-image="red" type="radio" id="red" name="color" value="red" checked/>
-                                    <label htmlFor="red"><span></span></label>
-                            </div>
-                            <div>
-                                <input data-image="blue" type="radio" id="blue" name="color" value="blue"/>
-                                    <label htmlFor="blue"><span></span></label>
-                            </div>
-                            <div>
-                                <input data-image="black" type="radio" id="black" name="color" value="black"/>
-                                    <label htmlFor="black"><span></span></label>
-                            </div>
-                        </div>
+            {selectedImage && (
+                <div>
+                    <img
+                        alt="not found"
+                        width={"250px"}
+                        src={URL.createObjectURL(selectedImage)}
+                    />
+                    <br />
+                    <button onClick={() => setSelectedImage(null)}>Remove</button>
+                    <button onClick={() => fileUpload()}>Upload</button>
+                </div>
+            )}
 
-                    </div>
-                </div>
-                <div className="product-price">
-                    <span>148$</span>
-                    <a href="/" className="cart-btn">Add to cart</a>
-                </div>
-            </div>
-        </main>
+            <br />
+            <br />
+
+            <input
+                type="file"
+                name="myImage"
+                onChange={(event) => {
+                    console.log(event.target.files[0]);
+                    setSelectedImage(event.target.files[0]);
+                }}
+            />
+            <button onClick={() => fileDownload()}>Download</button>
+        </div>
     );
-}
+};

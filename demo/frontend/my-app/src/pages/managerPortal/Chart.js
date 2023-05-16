@@ -8,12 +8,11 @@ export const Example = ({orders}) => {
     const lastSevenDaysFromNow = new Date(now.getTime() - (7 * 24 * 60 * 60 * 1000));
 
     const modifiedOrders = orders.filter(order => new Date(order.createdOn) >= lastSevenDaysFromNow);
-    console.log(modifiedOrders)
     const [totalArray, setTotalArray] = useState([]);
 
     useEffect(() => {
         getTotal();
-    }, [])
+    }, [orders])
 
     function getTotal() {
         let firstDay = 0;
@@ -54,6 +53,7 @@ export const Example = ({orders}) => {
 
         setTotalArray(data);
     }
+
 
     return (
         <div style={{width: '100%'}}>

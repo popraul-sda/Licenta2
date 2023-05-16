@@ -5,6 +5,8 @@ import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import {toast, ToastContainer} from "react-toastify";
+import '../../styles/managerPortalProducts.css';
+import DropdownItem from "react-bootstrap/DropdownItem";
 
 export function AddProduct({categ}){
 
@@ -13,6 +15,7 @@ export function AddProduct({categ}){
     const [price, setPrice] = useState('');
     const [category, setCategory] = useState('Category');
     const [image, setImage] = useState('');
+    const [active, setActive] = useState('Active');
 
     let categories = categ;
 
@@ -33,7 +36,8 @@ export function AddProduct({categ}){
                     "description": description,
                     "price": price,
                     "category": category,
-                    "image": image
+                    "image": image,
+                    "active": active
                 })
             })
                 .then(res => null)
@@ -41,6 +45,10 @@ export function AddProduct({categ}){
             toast("Product added");
         }
     }
+
+    // const fileSelectedHandler = (event) =>{
+    //     setImage(event.target.files[0]);
+    // }
 
     return (
       <>
@@ -71,11 +79,6 @@ export function AddProduct({categ}){
                   onChange={e => setPrice(e.target.value)}
               />
           </InputGroup>
-          <DropdownButton id="dropdown-basic-button" title={category}>
-              {
-                  categories.map(item => <Dropdown.Item key={item.id} onClick={() => setCategory(item.name)}>{item.name}</Dropdown.Item>)
-              }
-          </DropdownButton>
           <InputGroup className="mb-3">
               <InputGroup.Text id="basic-addon1">Image</InputGroup.Text>
               <Form.Control
@@ -85,6 +88,23 @@ export function AddProduct({categ}){
                   onChange={e => setImage(e.target.value)}
               />
           </InputGroup>
+          <DropdownButton id="dropdown-basic-button" title={category}>
+              {
+                  categories.map(item => <Dropdown.Item key={item.id} onClick={() => setCategory(item.name)}>{item.name}</Dropdown.Item>)
+              }
+          </DropdownButton>
+          <DropdownButton id="dropdown-basic-button" title={active}>
+              <DropdownItem onClick={() => setActive("Active")}>Active</DropdownItem>
+              <DropdownItem onClick={() => setActive("Inactive")}>Inactive</DropdownItem>
+          </DropdownButton>
+          {/*<div className="bottom-row-buttons">*/}
+          {/*    <DropdownButton id="dropdown-basic-button" title={category}>*/}
+          {/*        {*/}
+          {/*            categories.map(item => <Dropdown.Item key={item.id} onClick={() => setCategory(item.name)}>{item.name}</Dropdown.Item>)*/}
+          {/*        }*/}
+          {/*    </DropdownButton>*/}
+          {/*    <input className="choose-file" type="file" onChange={event => fileSelectedHandler(event)} />*/}
+          {/*</div>*/}
           <Button
               variant="primary"
               className="save-product"

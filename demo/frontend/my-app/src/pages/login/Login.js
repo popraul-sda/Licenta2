@@ -16,8 +16,6 @@ export function Login(){
 
     function sendLoginRequest() {
 
-        console.log(param1)
-
         const reqBody = {
             "userName": username,
             "password": password,

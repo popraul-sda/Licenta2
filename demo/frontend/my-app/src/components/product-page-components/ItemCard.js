@@ -5,6 +5,7 @@ import {actionType} from "./reducer";
 import {useNavigate} from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+// let cartData = sessionStorage.getItem('cart') ? JSON.parse(sessionStorage.getItem('cart')) : [];
 let cartData = [];
 
 export function ItemCard({imgSrc, name, price, itemId, products}){
@@ -27,6 +28,7 @@ export function ItemCard({imgSrc, name, price, itemId, products}){
         else if (isDuplicate) {
             toast("Item already in cart! Change the quantity with the plus sign below!");
         }
+        // sessionStorage.setItem('total', total);
     }, [isCart]);
 
     function productDetails(name){

@@ -1,35 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Table from "react-bootstrap/Table";
-import { Header } from "../../components/product-page-components/Header";
 import "../../styles/App.css";
 import "../../styles/managerPortalProducts.css";
-import { BottomMenu } from "../../components/product-page-components/BottomMenu";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React from 'react';
-import {Example} from "../../Chart";
 
-export function ManagerPortalOrders() {
-    const [orders, setOrders] = useState([]);
+export function ManagerPortalOrders({orders}) {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [selectedRow, setSelectedRow] = useState(null);
-
-    useEffect(() => {
-        getOrders();
-    }, []);
-
-    function getOrders() {
-        fetch("http://localhost:8080/showOrders", {
-            method: "GET",
-        })
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                setOrders(data);
-            });
-    }
 
     function handleRowClick(id) {
         setSelectedRow(id);
@@ -67,7 +47,6 @@ export function ManagerPortalOrders() {
 
     return (
         <div className="product-container">
-            <Header />
             <div className="date-filter">
                 <label htmlFor="startDate">Start date:</label>
                 <input type="date" id="startDate" name="startDate" onChange={handleStartDateChange} />
@@ -163,11 +142,9 @@ export function ManagerPortalOrders() {
                         </tbody>
                 }
             </Table>
-            <Example orders={orders}/>
             <div>
                 <p className="total-orders">Total: {getTotalInInterval()}lei</p>
             </div>
-            <BottomMenu />
             <ToastContainer />
         </div>
     );

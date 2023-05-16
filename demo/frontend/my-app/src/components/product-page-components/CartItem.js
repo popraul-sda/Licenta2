@@ -2,18 +2,25 @@ import {AddRounded, RemoveRounded} from "@mui/icons-material";
 import {useEffect, useState} from "react";
 import {useStateValue} from "./StateProvider";
 import {actionType} from "./reducer";
+// let cartItems = sessionStorage.getItem('cart') ? JSON.parse(sessionStorage.getItem('cart')) : [];
+// let amount = sessionStorage.getItem('total') == 0 ? sessionStorage.getItem('total') : 0;
+
 let cartItems = [];
 let amount = 0;
 
 export function CartItem({name, imgSrc, price, itemId}){
 
     const [qty, setQty] = useState(1);
-    const [{cart}, dispatch] = useStateValue();
+    const [{cart, total}, dispatch] = useStateValue();
     const [itemPrice, setItemPrice] = useState(parseInt(qty) * parseFloat(price))
 
     useEffect(() => {
         cartItems = cart;
+        // sessionStorage.setItem('cart', JSON.stringify(cartItems));
+        // console.log(sessionStorage.getItem('cart'))
+        // console.log(sessionStorage.getItem('total'))
         setItemPrice(parseInt(qty) * parseFloat(price));
+        // sessionStorage.setItem('total', total);
     }, [qty, itemPrice]);
 
     const updateQuantity = (action, id) =>{

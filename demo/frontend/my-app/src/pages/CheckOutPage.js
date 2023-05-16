@@ -5,7 +5,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import HomeIcon from '@mui/icons-material/Home';
 import {Header} from "../components/product-page-components/Header";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import "../styles/App.css";
 import Button from 'react-bootstrap/Button';
 import {useNavigate} from "react-router-dom";
@@ -15,6 +15,7 @@ import "../styles/checkout.css";
 import {useStateValue} from "../components/product-page-components/StateProvider";
 import {BottomMenu} from "../components/product-page-components/BottomMenu";
 import CountdownTimer from "../components/CountdownTimer/CountdownTimer";
+import {CheckCircle, DeliveryDining, Description, Fastfood} from "@mui/icons-material";
 
 export function CheckOutPage(){
 
@@ -28,7 +29,7 @@ export function CheckOutPage(){
     const [changeScreen, setChangeScreen] = useState(false);
     const [address, setAddress] = useState('');
     const [{ cart,total }] = useStateValue();
-    const [selectedOption, setSelectedOption] = useState('option1');
+    const [selectedOption, setSelectedOption] = useState('Ramburs');
 
     const handleOptionChange = (e) => {
         setSelectedOption(e.target.value);
@@ -88,9 +89,15 @@ export function CheckOutPage(){
                   <div>
                       <p className="timer-text">Time until your order arrives: </p>
                       <CountdownTimer countdownTimestampMs={date.getTime() + 30 * 60 * 1000}/>
+                      <div className="order-progress">
+                          <Description className="order-received large"/>
+                          <Fastfood className="order-inProcess large"/>
+                          <DeliveryDining className="order-delivery large"/>
+                          <CheckCircle className="order-delivered large"/>
+                      </div>
                       {
                           cart ? cart.map(item =>
-                                  <div>
+                                  <div className="active-order-items">
                                       <p className="order-text">{item[0].quantity} x {item[0].name}   {item[0].price} lei</p>
                                       <br />
                                       <br />
@@ -167,8 +174,8 @@ export function CheckOutPage(){
                                   <input
                                       type="radio"
                                       value="Ramburs"
-                                      checked={selectedOption === 'Ramburs'}
                                       onChange={handleOptionChange}
+                                      checked
                                   />
                                   Ramburs
                               </label>
@@ -177,10 +184,21 @@ export function CheckOutPage(){
                                   <input
                                       type="radio"
                                       value="Card"
-                                      checked={selectedOption === 'Card'}
                                       onChange={handleOptionChange}
+                                      disabled
                                   />
                                   Plata cu card
+                              </label>
+                              <br />
+                              <label>
+                                  <input
+                                      type="radio"
+                                      value="Card"
+                                      checked={selectedOption === 'Card'}
+                                      onChange={handleOptionChange}
+                                      disabled
+                                  />
+                                  Crypto
                               </label>
                           </div>
                           <Button variant="primary" className="finalize-button" onClick={() => finalizeOrder()}>Finalize Order</Button>{' '}

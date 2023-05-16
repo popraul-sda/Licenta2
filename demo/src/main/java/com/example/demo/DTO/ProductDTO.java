@@ -20,16 +20,19 @@ public class ProductDTO {
 
     private String image;
 
+    private String active;
+
 
     public ProductDTO() {
     }
 
-    public ProductDTO(Long id, String name, String description, String price, String category, String image) {
+    public ProductDTO(Long id, String name, String description, String price, String category, String image, String active) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
         this.image = image;
+        this.active = active;
     }
 }
