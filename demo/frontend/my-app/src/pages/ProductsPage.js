@@ -24,8 +24,36 @@ export function ProductsPage() {
     let navigate = useNavigate();
 
     useEffect(() => {
-        getCategories();
-        getProducts();
+        // getCategories();
+        // getProducts();
+
+        fetchData();
+
+        async function fetchData() {
+            try {
+                const categoriesResponse = await fetch('http://localhost:8080/categories', {
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                    },
+                    method: "GET"
+                });
+                const categoriesData = await categoriesResponse.json();
+                setCategories(categoriesData);
+
+                const productsResponse = await fetch('http://localhost:8080/products', {
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                    },
+                    method: "GET"
+                });
+                const productsData = await productsResponse.json();
+                setProducts(productsData.filter(item => item.active === "Active"));
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+
+            console.log(products)
+        }
 
         const menuCard = document
             .querySelector(".rowContainer")
@@ -40,34 +68,34 @@ export function ProductsPage() {
 
     }, [isMainData, cart]);
 
-
-    function getCategories() {
-        fetch('http://localhost:8080/categories', {
-            headers: {
-                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
-            },
-            method: "GET"
-        })
-            .then(function (response) {
-                return response.json();
-            }).then(function (data) {
-            setCategories(data)
-        })
-    }
-
-    function getProducts() {
-        fetch('http://localhost:8080/products', {
-            headers: {
-                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
-            },
-            method: "GET"
-        })
-            .then(function (response) {
-                return response.json();
-            }).then(function (data) {
-            setProducts(data.filter(item => item.active === "Active"))
-        })
-    }
+    //
+    // function getCategories() {
+    //     fetch('http://localhost:8080/categories', {
+    //         headers: {
+    //             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+    //         },
+    //         method: "GET"
+    //     })
+    //         .then(function (response) {
+    //             return response.json();
+    //         }).then(function (data) {
+    //         setCategories(data)
+    //     })
+    // }
+    //
+    // function getProducts() {
+    //     fetch('http://localhost:8080/products', {
+    //         headers: {
+    //             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+    //         },
+    //         method: "GET"
+    //     })
+    //         .then(function (response) {
+    //             return response.json();
+    //         }).then(function (data) {
+    //         setProducts(data.filter(item => item.active === "Active"))
+    //     })
+    // }
 
     function switchCategory(name, id) {
         setActiveCategory(name);
@@ -111,7 +139,7 @@ export function ProductsPage() {
                                         <ItemCard key={product.id}
                                                   itemId={product.id}
                                                   name={product.name}
-                                                  imgSrc={product.image}
+                                                  imgSrc={product.fileData ? process.env.PUBLIC_URL + "/images/" + product.fileData.name : ""}
                                                   price={product.price}
                                                   products={products}
                                         />
@@ -133,7 +161,7 @@ export function ProductsPage() {
                                                             <CartItem key={data[0].id}
                                                                       itemId={data[0].id}
                                                                       name={data[0].name}
-                                                                      imgSrc={data[0].image}
+                                                                      imgSrc={data[0].fileData ? process.env.PUBLIC_URL + "/images/" + data[0].fileData.name : ""}
                                                                       price={data[0].price}
                                                             />
                                                         ))

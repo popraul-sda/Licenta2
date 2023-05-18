@@ -193,7 +193,7 @@ export function ManagerPortalProducts() {
                         </td>
                         <td>
                             <input
-                                type="text"
+                                type="file"
                                 value={product.image}
                                 onChange={(event) => {
                                     const updatedProducts = products.map((p) => {

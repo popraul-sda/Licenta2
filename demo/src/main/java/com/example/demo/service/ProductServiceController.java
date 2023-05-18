@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,19 +28,19 @@ public class ProductServiceController {
 
     @GetMapping("/products")
     public ResponseEntity<Object> getProducts() {
-        return new ResponseEntity<>(productRepository.findAll().stream().map(o -> new ProductDTO(o.getId(), o.getName(),
-                o.getDescription(), o.getPrice(), o.getCategory(), o.getImage(), o.getActive())).collect(Collectors.toList()), HttpStatus.OK);
+        return new ResponseEntity<>(productRepository.findAll().stream().map(o -> new Product(o.getId(), o.getName(),
+                o.getDescription(), o.getPrice(), o.getCategory(), o.getFileData(), o.getActive())).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @PostMapping("/products")
-    public ResponseEntity<Object> createProduct(@RequestBody ProductDTO productDTO){
+    public ResponseEntity<Object> createProduct(@RequestBody Product productDTO){
         Product product = new Product();
         product.setId(product.getId());
         product.setDescription(productDTO.getDescription());
         product.setCategory(productDTO.getCategory());
         product.setName(productDTO.getName());
         product.setPrice(productDTO.getPrice());
-        product.setImage(productDTO.getImage());
+        product.setFileData(productDTO.getFileData());
         product.setActive(productDTO.getActive());
         productRepository.save(product);
         return new ResponseEntity<>("Product Data Added", HttpStatus.OK);
@@ -54,7 +55,7 @@ public class ProductServiceController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/products/{id}")
-    public ResponseEntity<Object> updateProduct(@PathVariable("id") Long id, @RequestBody ProductDTO productDTO){
+    public ResponseEntity<Object> updateProduct(@PathVariable("id") Long id, @RequestBody Product productDTO){
 
         Optional<Product> optionalProduct = productRepository.findById(id);
 
@@ -62,7 +63,7 @@ public class ProductServiceController {
             Product product = optionalProduct.get();
             product.setCategory(productDTO.getCategory());
             product.setDescription(productDTO.getDescription());
-            product.setImage(productDTO.getImage());
+            product.setFileData(productDTO.getFileData());
             product.setName(productDTO.getName());
             product.setPrice(productDTO.getPrice());
             product.setActive(productDTO.getActive());

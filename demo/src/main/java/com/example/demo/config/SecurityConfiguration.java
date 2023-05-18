@@ -41,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests((request) -> request.antMatchers("/h2-console/**", "/api/v1/auth/login", "/register", "/products",
                                 "/categories", "/logout", "/", "/addOrder", "/showOrders", "/getComments", "/addComment",
                                 "/deleteComment/{id}", "/editComment/{id}", "/productsCoppy", "/productsCoppy/{id}", "/image",
-                                "/image/{fileName}").permitAll() // add "/"" to allow unauthenticated access to the root URL
+                                "/image/{fileName}", "/fileSystem", "/fileSystem/{fileName}").permitAll() // add "/"" to allow unauthenticated access to the root URL
                         .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated())
                 .addFilterBefore(new JWTAuthenticationFilter(userService, jWTTokenHelper),
                         UsernamePasswordAuthenticationFilter.class)

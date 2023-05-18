@@ -20,9 +20,7 @@ export function ProductInformation(){
             <Header/>
             <main className="container">
                 <div className="left-column">
-                    <img data-image="black" src={product[0].image} alt=""/>
-                    <img data-image="blue" src={product[0].image} alt=""/>
-                    <img data-image="red" className="active" src={product[0].image} alt=""/>
+                    <img data-image="red" className="active" src={product[0].fileData ? process.env.PUBLIC_URL + "/images/" + product[0].fileData.name : ""} alt=""/>
                 </div>
                 <div className="right-column">
                     <div className="product-description">

@@ -14,37 +14,63 @@ export function AddProduct({categ}){
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [category, setCategory] = useState('Category');
-    const [image, setImage] = useState('');
     const [active, setActive] = useState('Active');
+    const [selectedImage, setSelectedImage] = useState(null);
 
     let categories = categ;
 
-    function saveProduct(){
-        if (name === '' || description === '' || price === '' || category === 'Category' || image === '')
-        {
-            toast("Complete all the details for the new product!")
-        }
-        else {
-            fetch('http://localhost:8080/products', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization':'Bearer ' + sessionStorage.getItem('token')
-                },
-                body: JSON.stringify({
-                    "name": name,
-                    "description": description,
-                    "price": price,
-                    "category": category,
-                    "image": image,
-                    "active": active
-                })
-            })
-                .then(res => null)
+    async function saveProduct() {
+        if (name === '' || description === '' || price === '' || category === 'Category') {
+            toast("Complete all the details for the new product!");
+        } else {
+            try {
+                const formData = new FormData();
+                formData.append("image", selectedImage);
+                const url = "http://localhost:8080/image/fileSystem";
 
-            toast("Product added");
+                const imageResponse = await fetch(url, {
+                    method: "POST",
+                    body: formData,
+                });
+
+                const fileData = await imageResponse.json(); // Parse response as JSON
+                console.log("Image upload response:", fileData);
+
+                const productResponse = await fetch('http://localhost:8080/products', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                    },
+                    body: JSON.stringify({
+                        "name": name,
+                        "description": description,
+                        "price": price,
+                        "category": category,
+                        "fileData": {
+                            "id": fileData.id,
+                            "name": fileData.name,
+                            "type": fileData.type,
+                            "filePath": fileData.filePath
+                        },
+                        "active": active
+                    })
+                });
+
+                const responseData = await productResponse.json();
+                console.log("Product creation response:", responseData);
+
+                // Handle response or display a success message
+                toast("Product added");
+            } catch (error) {
+                console.error("Error:", error);
+                // Handle error or display an error message
+            }
         }
     }
+
+
+
 
     // const fileSelectedHandler = (event) =>{
     //     setImage(event.target.files[0]);
@@ -79,21 +105,13 @@ export function AddProduct({categ}){
                   onChange={e => setPrice(e.target.value)}
               />
           </InputGroup>
-          <InputGroup className="mb-3">
-              <InputGroup.Text id="basic-addon1">Image</InputGroup.Text>
-              <Form.Control
-                  aria-label="Image"
-                  aria-describedby="basic-addon1"
-                  value={image}
-                  onChange={e => setImage(e.target.value)}
-              />
-          </InputGroup>
-          <DropdownButton id="dropdown-basic-button" title={category}>
+          <input className="upload-image" type="file" name="Image" onChange={(event) => setSelectedImage(event.target.files[0])}/>
+          <DropdownButton id="dropdown-basic-button" className="mb-3" title={category}>
               {
                   categories.map(item => <Dropdown.Item key={item.id} onClick={() => setCategory(item.name)}>{item.name}</Dropdown.Item>)
               }
           </DropdownButton>
-          <DropdownButton id="dropdown-basic-button" title={active}>
+          <DropdownButton id="dropdown-basic-button" className="mb-3" title={active}>
               <DropdownItem onClick={() => setActive("Active")}>Active</DropdownItem>
               <DropdownItem onClick={() => setActive("Inactive")}>Inactive</DropdownItem>
           </DropdownButton>
@@ -108,6 +126,7 @@ export function AddProduct({categ}){
           <Button
               variant="primary"
               className="save-product"
+              type="button"
               style={{ marginBottom: '100px' }}
               onClick={() => saveProduct()}
           >Save Product</Button>{' '}

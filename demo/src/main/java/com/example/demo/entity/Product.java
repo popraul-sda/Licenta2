@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.File;
 import java.io.Serializable;
 
 @Data
@@ -22,8 +23,10 @@ public class Product{
     private String price;
     @Column(name = "CATEGORY")
     private String category;
-    @Column(name = "IMAGE")
-    private String image;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "FILE_FK", referencedColumnName = "id")
+    private FileData fileData;
 
     @Column(name = "ACTIVE")
     private String active;
@@ -32,13 +35,13 @@ public class Product{
     public Product() {
     }
 
-    public Product(Long id, String name, String description, String price, String category, String image, String active) {
+    public Product(Long id, String name, String description, String price, String category, FileData fileData, String active) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
-        this.image = image;
+        this.fileData = fileData;
         this.active = active;
     }
 
