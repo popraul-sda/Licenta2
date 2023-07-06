@@ -31,6 +31,8 @@ const Comments = ({currentUserId}) => {
 
         setActiveComment(null);
 
+        window.location.reload();
+
     }
 
     const deleteComment = (commentId) =>{

@@ -56,7 +56,8 @@ public class StorageService {
         file.transferTo(new File(filePath));
 
         if (fileData != null) {
-            return fileData;
+            return fileData
+                    ;
         }
         return null;
     }

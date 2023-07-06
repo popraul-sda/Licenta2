@@ -100,16 +100,24 @@
 //     );
 // }
 
-import React from "react";
+// import React from "react";
+//
+// export function Test() {
+//     const imageUrl = process.env.PUBLIC_URL + "/images/WhatsApp Image 2023-05-11 at 14.26.17.jpeg";
+//
+//     return (
+//         <div>
+//             <h1>Image Component</h1>
+//             <img src={imageUrl} alt="Your Image" />
+//         </div>
+//     );
+// }
 
-export function Test() {
-    const imageUrl = process.env.PUBLIC_URL + "/images/WhatsApp Image 2023-05-11 at 14.26.17.jpeg";
+import {ErrorPage} from "./ErrorPage";
 
+export function Test(){
     return (
-        <div>
-            <h1>Image Component</h1>
-            <img src={imageUrl} alt="Your Image" />
-        </div>
+      <ErrorPage />
     );
 }
 

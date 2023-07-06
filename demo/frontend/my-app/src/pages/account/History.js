@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Table from "react-bootstrap/Table";
-import "../styles/App.css";
-import "../styles/managerPortalProducts.css";
+import "../../styles/App.css";
+import "../../styles/managerPortalProducts.css";
 
 export function History({history}){
 

@@ -80,7 +80,7 @@ export function ManagerPortalProducts() {
     //
     // }
 
-    function updateProduct(id, name, description, price, category, image, active) {
+    function updateProduct(id, name, description, price, category, fileData, active) {
 
         let path = 'http://localhost:8080/products/' + id;
 
@@ -95,7 +95,7 @@ export function ManagerPortalProducts() {
                 "description": description,
                 "price": price,
                 "category": category,
-                "image": image,
+                "fileData": fileData,
                 "active": active
             })
         })
@@ -114,7 +114,7 @@ export function ManagerPortalProducts() {
                     <th>Product Price</th>
                     <th>Product Description</th>
                     <th>Product Category</th>
-                    <th>Product Image</th>
+                    {/*<th>Product Image</th>*/}
                     <th>Product Status</th>
                 </tr>
                 </thead>
@@ -191,22 +191,22 @@ export function ManagerPortalProducts() {
                                 }
                             </DropdownButton>
                         </td>
-                        <td>
-                            <input
-                                type="file"
-                                value={product.image}
-                                onChange={(event) => {
-                                    const updatedProducts = products.map((p) => {
-                                        if (p.id === product.id) {
-                                            return {...p, image: event.target.value};
-                                        } else {
-                                            return p;
-                                        }
-                                    });
-                                    setProducts(updatedProducts);
-                                }}
-                            />
-                        </td>
+                        {/*<td>*/}
+                        {/*    <input*/}
+                        {/*        type="file"*/}
+                        {/*        value={product.image}*/}
+                        {/*        onChange={(event) => {*/}
+                        {/*            const updatedProducts = products.map((p) => {*/}
+                        {/*                if (p.id === product.id) {*/}
+                        {/*                    return {...p, image: event.target.value};*/}
+                        {/*                } else {*/}
+                        {/*                    return p;*/}
+                        {/*                }*/}
+                        {/*            });*/}
+                        {/*            setProducts(updatedProducts);*/}
+                        {/*        }}*/}
+                        {/*    />*/}
+                        {/*</td>*/}
                         <td>
                             <DropdownButton id="dropdown-basic-button" title={product.active}>
                                 <DropdownItem onClick={(event) => {
@@ -237,7 +237,7 @@ export function ManagerPortalProducts() {
                         </td>
                         <td>
                             <Button variant="primary"
-                                    onClick={() => updateProduct(product.id, product.name, product.description, product.price, product.category, product.image, product.active)}>Save</Button>{' '}
+                                    onClick={() => updateProduct(product.id, product.name, product.description, product.price, product.category, product.fileData, product.active)}>Save</Button>{' '}
                         </td>
                     </tr>
                 ))}

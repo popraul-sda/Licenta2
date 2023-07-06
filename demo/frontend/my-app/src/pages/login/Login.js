@@ -84,12 +84,11 @@ export function Login(){
                                     <label htmlFor="">Password</label>
                             </div>
                             <div className="forget">
-                                <label htmlFor=""><input type="checkbox" value={remember} onChange={handleCheckBox}/>Remember Me <a href="/Users/USER/Desktop/ServerClientLicenta/ServerRestaurant/demo/frontend/my-app/src/pages">Forget
-                                    Password</a></label>
+                                <label htmlFor=""><input type="checkbox" value={remember} onChange={handleCheckBox}/>Remember Me</label>
                             </div>
                             <button onClick={sendLoginRequest}>Log in</button>
                             <div className="register">
-                                <p>Don't have a account <a href="/Users/USER/Desktop/ServerClientLicenta/ServerRestaurant/demo/frontend/my-app/src/pages/login/Register">Register</a></p>
+                                <p>Don't have a account <a href="/register">Register</a></p>
                             </div>
                     </div>
                     <ToastContainer />

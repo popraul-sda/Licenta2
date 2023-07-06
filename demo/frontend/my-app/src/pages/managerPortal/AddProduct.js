@@ -66,6 +66,13 @@ export function AddProduct({categ}){
                 console.error("Error:", error);
                 // Handle error or display an error message
             }
+            toast("Product added");
+            setName("");
+            setPrice("");
+            setDescription("");
+            setCategory('Category');
+            setActive('Active');
+            setSelectedImage(null);
         }
     }
 

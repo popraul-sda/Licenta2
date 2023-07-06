@@ -5,7 +5,7 @@ import React, {useState, useEffect} from "react";
 import {AccountDetails} from "./AccountDetails";
 import '../../styles/accountPage.css';
 import {CurrentOrder} from "./CurrentOrder";
-import {History} from "../History";
+import {History} from "./History";
 import '../../styles/managerPortalProducts.css';
 
 export function AccountPage() {

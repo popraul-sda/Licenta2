@@ -2,11 +2,38 @@ import "../styles/App.css";
 import {Header} from "../components/product-page-components/Header";
 import "../styles/contact.css";
 import {BottomMenu} from "../components/product-page-components/BottomMenu";
+import { Helmet } from 'react-helmet';
 
 export function Contact(){
 
+    function generateContactJsonLd() {
+        return `
+    {
+      "@context": "https://schema.org/",
+      "@type": "ContactPage",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "123 Example St",
+        "addressLocality": "City",
+        "addressRegion": "State",
+        "postalCode": "12345",
+        "addressCountry": "Country"
+      },
+      "openingHours": "Mo-Su 08:00-21:00",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-123-456-7890",
+        "contactType": "customer service"
+      }
+    }
+  `;
+    }
+
     return (
         <div>
+            <Helmet>
+                <script type="application/ld+json">{generateContactJsonLd()}</script>
+            </Helmet>
             <Header />
             <div className="center-container">
                     <div className="address">

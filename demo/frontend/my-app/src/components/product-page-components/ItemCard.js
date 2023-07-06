@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // let cartData = sessionStorage.getItem('cart') ? JSON.parse(sessionStorage.getItem('cart')) : [];
 let cartData = [];
 
-export function ItemCard({imgSrc, name, price, itemId, products}){
+export function ItemCard({imgSrc, name, price, itemId, products, description}){
 
     let navigate = useNavigate();
     const [{total}, dispatch] = useStateValue();
@@ -31,10 +31,10 @@ export function ItemCard({imgSrc, name, price, itemId, products}){
         // sessionStorage.setItem('total', total);
     }, [isCart]);
 
-    function productDetails(name){
-        const path = "/product/" + name.replace(/\s+/g, '');
-        navigate(path, { state: { data: products.filter(product => product.name === name) } });
-    }
+    // function productDetails(name){
+    //     const path = "/product/" + name.replace(/\s+/g, '');
+    //     navigate(path, { state: { data: products.filter(product => product.name === name) } });
+    // }
 
     function addItem(){
         setCart(products.filter((n) => n.id === itemId));
@@ -55,10 +55,11 @@ export function ItemCard({imgSrc, name, price, itemId, products}){
     return (
       <div className="itemCard">
           <div className="imgBox">
-              <img src={imgSrc} alt="" className="itemImg" onClick={() => productDetails(name)}/>
+              <img src={imgSrc} alt="" className="itemImg" />
           </div>
           <div className="itemContent">
               <h3 className="itemName">{name}</h3>
+              <p className="itemCard-description">{description}</p>
               <div className="bottom" >
                   <div className="ratings">
                       <h3 className="price">

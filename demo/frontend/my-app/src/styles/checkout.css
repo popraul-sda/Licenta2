@@ -88,7 +88,11 @@ Button {
 }
 
 .icon-active{
-    color: darkred;
+    color: lightgreen;
+}
+
+.no-order{
+    margin-left: 630px;
 }
 
 
